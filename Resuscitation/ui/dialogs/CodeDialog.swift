@@ -13,6 +13,11 @@ struct CodeDialog: View {
     @Environment(\.presentationMode) var presentation
     
     
+    private let presenter: Presenter
+    
+    
+    private let log: ResuscitationLog
+    
     private let startTime = Date()
     
     @State private var durationMillis: UInt64 = 0
@@ -20,6 +25,13 @@ struct CodeDialog: View {
     @State private var durationString: String = "0:00"
     
     private let timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
+    
+    
+    init(_ presenter: Presenter) {
+        self.presenter = presenter
+        
+        self.log = presenter.createNewResuscitationLog(startTime)
+    }
 
     
     var body: some View {
@@ -62,7 +74,7 @@ struct CodeDialog: View {
                     
                     Spacer()
                     
-                    RightHalfScreenWidthButton("LO/LV", self.loLv)
+                    RightHalfScreenWidthButton("IO/IV", self.ioIv)
                 }
                 
                 Spacer()
@@ -86,35 +98,42 @@ struct CodeDialog: View {
     
     
     private func rhythmAnalysis() {
-        
+        addLogEntry(.rhythmAnalysis)
     }
     
     private func shock() {
-        
+        addLogEntry(.shock)
     }
     
     private func adrenalin() {
-        
+        addLogEntry(.adrenalin)
     }
     
     private func amiodaron() {
-        
+        addLogEntry(.amiodaron)
     }
     
-    private func loLv() {
-        
+    private func ioIv() {
+        addLogEntry(.ioIv)
     }
     
     private func airway() {
-        
+        addLogEntry(.airway)
     }
     
     private func lucas() {
-        
+        addLogEntry(.lucas)
     }
     
     private func stopResuscitation() {
+        presenter.resuscitationStopped(log)
+        
         presentation.wrappedValue.dismiss()
+    }
+    
+    
+    private func addLogEntry(_ type: LogEntryType) {
+        presenter.addLogEntry(log, Date(), type)
     }
 
 }
@@ -123,7 +142,7 @@ struct CodeDialog: View {
 struct CodeDialog_Previews: PreviewProvider {
 
     static var previews: some View {
-        CodeDialog()
+        CodeDialog(Presenter(ResuscitationPersistence()))
     }
 
 }

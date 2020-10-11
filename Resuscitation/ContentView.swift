@@ -3,6 +3,9 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @Inject private var presenter: Presenter
+    
+    
     static private let ButtonHeight: CGFloat = 50
     
     static private let TopButtonsWidth = halfOfScreenWithSpacing
@@ -12,14 +15,13 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 HStack {
-                    NavigationLink("Logs", destination: LogsOverviewDialog())
+                    NavigationLink("Logs", destination: LazyView(LogsOverviewDialog(presenter)))
                         .frame(width: Self.TopButtonsWidth, height: Self.ButtonHeight, alignment: .leading)
                         .padding(.leading, 12)
-                        .disabled(true)
                     
                     Spacer()
                     
-                    NavigationLink("Options", destination: SettingsDialog())
+                    NavigationLink("Options", destination: LazyView(SettingsDialog()))
                         .frame(width: Self.TopButtonsWidth, height: Self.ButtonHeight, alignment: .trailing)
                         .padding(.trailing, 12)
                         .disabled(true)
@@ -27,7 +29,7 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                NavigationLink("Start Code", destination: CodeDialog())
+                NavigationLink("Start Code", destination: LazyView(CodeDialog(presenter)))
                     .frame(width: Self.screenWidth, height: Self.ButtonHeight)
                 
                 Spacer()

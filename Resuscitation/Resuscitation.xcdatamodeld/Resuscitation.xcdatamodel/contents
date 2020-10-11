@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="LogEntry" representedClassName="LogEntry" syncable="YES" codeGenerationType="class">
+        <attribute name="time" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="type" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="ResuscitationLog" representedClassName="ResuscitationLog" syncable="YES" codeGenerationType="class">
+        <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="logEntries" toMany="YES" deletionRule="Cascade" destinationEntity="LogEntry"/>
+    </entity>
+    <elements>
+        <element name="ResuscitationLog" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="LogEntry" positionX="-54" positionY="9" width="128" height="73"/>
+    </elements>
 </model>

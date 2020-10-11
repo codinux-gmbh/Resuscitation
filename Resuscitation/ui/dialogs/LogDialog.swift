@@ -28,7 +28,7 @@ struct LogDialog: View {
     
 
     var body: some View {
-        VStack {
+        Form {
             HStack {
                 Text(presenter.formatDate(log.startTime))
                 
@@ -36,20 +36,23 @@ struct LogDialog: View {
                 
                 Text(presenter.formatTime(log.startTime))
             }
-            .padding()
             
-            List(entries) { entry in
-                HStack {
-                    Text(presenter.translateLogEntryType((entry as LogEntry).type))
-                    
-                    Spacer()
-                    
-                    Text(presenter.formatTimeWithSeconds((entry as LogEntry).time))
+            Section {
+                List(entries) { entry in
+                    HStack {
+                        Text(presenter.translateLogEntryType((entry as LogEntry).type))
+                        
+                        Spacer()
+                        
+                        Text(presenter.formatTimeWithSeconds((entry as LogEntry).time))
+                    }
                 }
             }
             
-            Button("Export", action: self.showExportLogOptionsActionSheet)
-                .frame(width: Self.screenWidth, height: 50, alignment: .center)
+            Section {
+                Button("Export", action: self.showExportLogOptionsActionSheet)
+                    .frame(width: Self.screenWidth, height: 50, alignment: .center)
+            }
         }
     }
     

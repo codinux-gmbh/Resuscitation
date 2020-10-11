@@ -16,14 +16,18 @@ struct LogsOverviewDialog: View {
     
 
     var body: some View {
-        List(logs) { log in
-            NavigationLink(destination: LazyView(LogDialog(log, presenter))) {
-                HStack {
-                    Text(presenter.formatDate(log.startTime))
-                    
-                    Spacer()
-                    
-                    Text(presenter.formatTime(log.startTime))
+        Form {
+            Section {
+                List(logs) { log in
+                    NavigationLink(destination: LazyView(LogDialog(log, presenter))) {
+                        HStack {
+                            Text(presenter.formatDate(log.startTime))
+                            
+                            Spacer()
+                            
+                            Text(presenter.formatTime(log.startTime))
+                        }
+                    }
                 }
             }
         }

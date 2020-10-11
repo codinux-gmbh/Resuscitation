@@ -37,16 +37,49 @@ class Presenter {
     }
     
     
-    func formatDate(_ date: Date) -> String {
-        return Styles.LogDateFormatter.string(from: date)
+    func exportLogAsString(_ log: ResuscitationLog) -> String {
+        var logString = ""
+        
+        (log.logEntries as? Set<LogEntry>)?.forEach { entry in
+            logString += formatTimeWithSeconds(entry.time) + "\t\t" + translateLogEntryType(entry.type) + "\n"
+        }
+        
+        return logString
     }
     
-    func formatTime(_ time: Date) -> String {
-        return Styles.TimeFormatter.string(from: time)
+    
+    func translateLogEntryType(_ typeInt: Int32) -> String {
+        switch (Int(typeInt)) {
+        case LogEntryType.rhythmAnalysis.rawValue:
+            return "Rhythm Analysis".localize()
+        case LogEntryType.shock.rawValue:
+            return "Shock".localize()
+        case LogEntryType.adrenalin.rawValue:
+            return "Adrenalin".localize()
+        case LogEntryType.amiodaron.rawValue:
+            return "Amiodaron".localize()
+        case LogEntryType.ioIv.rawValue:
+            return "IO/IV".localize()
+        case LogEntryType.airway.rawValue:
+            return "Airway".localize()
+        case LogEntryType.lucas.rawValue:
+            return "LUCAS".localize()
+        default:
+            return "Unknown".localize()
+        }
     }
     
-    func formatTimeWithSeconds(_ time: Date) -> String {
-        return Styles.TimeFormatterWithSeconds.string(from: time)
+    
+    func formatDate(_ date: Date?) -> String {
+        return Styles.LogDateFormatter.string(from: date!)
+    }
+    
+    func formatTime(_ time: Date?) -> String {
+        return Styles.TimeFormatter.string(from: time!)
+    }
+    
+    func formatTimeWithSeconds(_ time: Date?) -> String {
+        return Styles.TimeFormatterWithSeconds.string(from: time!)
     }
     
     

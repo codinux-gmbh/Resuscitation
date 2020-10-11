@@ -33,6 +33,10 @@
 		36B70F632532965900734588 /* LogDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F622532965900734588 /* LogDialog.swift */; };
 		36B70F6B25329CE000734588 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F6A25329CE000734588 /* Styles.swift */; };
 		36B70F7025329F4300734588 /* SwiftExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F6F25329F4300734588 /* SwiftExtensions.swift */; };
+		36B70F752532A71C00734588 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F742532A71C00734588 /* UIKitExtensions.swift */; };
+		36B70F7C2532A7AC00734588 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F7B2532A7AC00734588 /* ActionSheet.swift */; };
+		36B70F872532A7E700734588 /* UIAlertBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F862532A7E700734588 /* UIAlertBase.swift */; };
+		36B70F8F2532A81700734588 /* UIAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F8E2532A81700734588 /* UIAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +90,10 @@
 		36B70F622532965900734588 /* LogDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogDialog.swift; sourceTree = "<group>"; };
 		36B70F6A25329CE000734588 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		36B70F6F25329F4300734588 /* SwiftExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExtensions.swift; sourceTree = "<group>"; };
+		36B70F742532A71C00734588 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		36B70F7B2532A7AC00734588 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
+		36B70F862532A7E700734588 /* UIAlertBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertBase.swift; sourceTree = "<group>"; };
+		36B70F8E2532A81700734588 /* UIAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +214,7 @@
 		36B70F35253278D800734588 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				36B70F7A2532A79D00734588 /* UIKit */,
 				36B70F5A2532927500734588 /* LazyView.swift */,
 				36B70F302532771200734588 /* LeftHalfScreenWidthButton.swift */,
 				36B70F36253278F000734588 /* RightHalfScreenWidthButton.swift */,
@@ -229,6 +238,17 @@
 				36B70F4D25328BB200734588 /* ResuscitationLogInfo.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		36B70F7A2532A79D00734588 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				36B70F862532A7E700734588 /* UIAlertBase.swift */,
+				36B70F8E2532A81700734588 /* UIAlert.swift */,
+				36B70F7B2532A7AC00734588 /* ActionSheet.swift */,
+				36B70F742532A71C00734588 /* UIKitExtensions.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -368,15 +388,19 @@
 				36B70F312532771200734588 /* LeftHalfScreenWidthButton.swift in Sources */,
 				36B70EB3253265D100734588 /* AppDelegate.swift in Sources */,
 				36B70EFB253268BB00734588 /* SettingsDialog.swift in Sources */,
+				36B70F752532A71C00734588 /* UIKitExtensions.swift in Sources */,
+				36B70F8F2532A81700734588 /* UIAlert.swift in Sources */,
 				36B70F37253278F000734588 /* RightHalfScreenWidthButton.swift in Sources */,
 				36B70F5625328C7600734588 /* CoreDataExtensions.swift in Sources */,
 				36B70F22253272C800734588 /* ViewExtensions.swift in Sources */,
 				36B70EEB253267F200734588 /* CodeDialog.swift in Sources */,
 				36B70EB5253265D100734588 /* SceneDelegate.swift in Sources */,
+				36B70F7C2532A7AC00734588 /* ActionSheet.swift in Sources */,
 				36B70F4E25328BB200734588 /* ResuscitationLogInfo.swift in Sources */,
 				36B70F2C2532764300734588 /* DependencyInjector.swift in Sources */,
 				36B70EB7253265D100734588 /* ContentView.swift in Sources */,
 				36B70F6B25329CE000734588 /* Styles.swift in Sources */,
+				36B70F872532A7E700734588 /* UIAlertBase.swift in Sources */,
 				36B70EBA253265D100734588 /* Resuscitation.xcdatamodeld in Sources */,
 				36B70EF6253268A200734588 /* LogsOverviewDialog.swift in Sources */,
 				36B70F4825328A9500734588 /* LogEntryType.swift in Sources */,

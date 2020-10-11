@@ -1,8 +1,14 @@
+
+/*      ContentView     */
+
 "Start Code" = "Start Code";
 
 "Logs" = "Logs";
 
 "Settings" = "Options";
+
+
+/*      LogOverviewDialog       */
 
 "Total time" = "Total time";
 "Rhythm Analysis" = "Rhythm Analysis";
@@ -13,3 +19,9 @@
 "Airway" = "Airway";
 "LUCAS" = "LUCAS";
 "R O S C" = "R O S C";
+
+
+/*      LogDialog       */
+
+"Export" = "Export";
+"Print (PDF)" = "Print (PDF)";

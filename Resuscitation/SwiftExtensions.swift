@@ -1,7 +1,7 @@
-import SwiftUI
+import Foundation
 
 
-extension String {
+extension StringProtocol {
     
     var isNotEmpty: Bool {
         return !isEmpty
@@ -37,6 +37,42 @@ extension String {
     
     var firstLetterUppercased: String {
         prefix(1).uppercased() + dropFirst()
+    }
+    
+}
+
+extension String {
+        
+        
+        func localize() -> String {
+            return NSLocalizedString(self, comment: "")
+        }
+        
+        func localize(_ arguments: CVarArg) -> String {
+            return String(format: NSLocalizedString(self, comment: ""), arguments)
+        }
+
+}
+
+
+
+extension Optional where Wrapped == String {
+    
+    var isNullOrEmpty: Bool {
+        return self?.isEmpty ?? true
+    }
+    
+    var isNullOrBlank: Bool {
+        return self?.isBlank ?? true
+    }
+    
+}
+
+
+extension Array {
+    
+    var isNotEmpty: Bool {
+        return !isEmpty
     }
     
 }

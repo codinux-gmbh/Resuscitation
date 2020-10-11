@@ -1,8 +1,14 @@
+
+/*      ContentView     */
+
 "Start Code" = "Wiederbelebung starten";
 
 "Logs" = "Logs";
 
 "Settings" = "Einstellungen";
+
+
+/*      LogOverviewDialog       */
 
 "Total time" = "Dauer";
 "Rhythm Analysis" = "Pulskontrolle(?)";
@@ -13,3 +19,9 @@
 "Airway" = "Atemwege";
 "LUCAS" = "LUCAS";
 "R O S C" = "Beenden";
+
+
+/*      LogDialog       */
+
+"Export" = "Exportieren";
+"Print (PDF)" = "Drucken (PDF)";

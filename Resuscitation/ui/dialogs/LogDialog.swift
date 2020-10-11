@@ -30,46 +30,55 @@ struct LogDialog: View {
     var body: some View {
         VStack {
             HStack {
-                Text(presenter.formatDate(log.startTime!))
+                Text(presenter.formatDate(log.startTime))
                 
                 Spacer()
                 
-                Text(presenter.formatTime(log.startTime!))
+                Text(presenter.formatTime(log.startTime))
             }
             .padding()
             
             List(entries) { entry in
                 HStack {
-                    Text(LocalizedStringKey(translateType((entry as LogEntry).type)))
+                    Text(presenter.translateLogEntryType((entry as LogEntry).type))
                     
                     Spacer()
                     
-                    Text(presenter.formatTimeWithSeconds((entry as LogEntry).time!))
+                    Text(presenter.formatTimeWithSeconds((entry as LogEntry).time))
                 }
             }
+            
+            Button("Export", action: self.showExportLogOptionsActionSheet)
+                .frame(width: Self.screenWidth, height: 40, alignment: .center)
         }
     }
     
     
-    private func translateType(_ typeInt: Int32) -> String {
-        switch (Int(typeInt)) {
-        case LogEntryType.rhythmAnalysis.rawValue:
-            return "Rhythm Analysis"
-        case LogEntryType.shock.rawValue:
-            return "Shock"
-        case LogEntryType.adrenalin.rawValue:
-            return "Adrenalin"
-        case LogEntryType.amiodaron.rawValue:
-            return "Amiodaron"
-        case LogEntryType.ioIv.rawValue:
-            return "IO/IV"
-        case LogEntryType.airway.rawValue:
-            return "Airway"
-        case LogEntryType.lucas.rawValue:
-            return "LUCAS"
-        default:
-            return "Unknown"
-        }
+    
+    private func showExportLogOptionsActionSheet() {
+        ActionSheet(
+            nil,
+            UIAlertAction.default("Print (PDF)") { self.exportLogForPrinting() },
+            UIAlertAction.cancel()
+        ).show()
+    }
+    
+    private func exportLogForPrinting() {
+        let logString = presenter.exportLogAsString(log)
+        
+        let attributes = [NSAttributedString.Key : Any]()
+        let string = NSAttributedString(string: logString, attributes: attributes)
+        let print = UISimpleTextPrintFormatter(attributedText: string)
+        
+        
+        let activityViewController = UIActivityViewController(activityItems: [ logString, print ], applicationActivities: nil)
+        
+        let viewController = SceneDelegate.rootViewController
+        
+        // needed for iPad
+        activityViewController.popoverPresentationController?.sourceView = viewController?.view
+        
+        viewController?.present(activityViewController, animated: true, completion: nil)
     }
 
 }

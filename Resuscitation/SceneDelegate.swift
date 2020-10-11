@@ -7,6 +7,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
+    var rootViewController: UIViewController? {
+        return window?.rootViewController
+    }
+    
     var persistence: ResuscitationPersistence?
 
 

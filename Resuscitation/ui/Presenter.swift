@@ -47,6 +47,16 @@ class Presenter {
         return logString
     }
     
+    func exportLogAsCsv(_ log: ResuscitationLog) -> String {
+        var logString = ""
+        
+        (log.logEntries as? Set<LogEntry>)?.forEach { entry in
+            logString += formatTimeWithSeconds(entry.time) + "," + translateLogEntryType(entry.type) + "\n"
+        }
+        
+        return logString
+    }
+    
     
     func translateLogEntryType(_ typeInt: Int32) -> String {
         switch (Int(typeInt)) {

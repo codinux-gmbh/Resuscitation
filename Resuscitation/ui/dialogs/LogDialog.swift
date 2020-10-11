@@ -49,7 +49,7 @@ struct LogDialog: View {
             }
             
             Button("Export", action: self.showExportLogOptionsActionSheet)
-                .frame(width: Self.screenWidth, height: 40, alignment: .center)
+                .frame(width: Self.screenWidth, height: 50, alignment: .center)
         }
     }
     
@@ -58,20 +58,31 @@ struct LogDialog: View {
     private func showExportLogOptionsActionSheet() {
         ActionSheet(
             nil,
+            UIAlertAction.default("CSV") { self.exportLogAsCsv() },
             UIAlertAction.default("Print (PDF)") { self.exportLogForPrinting() },
             UIAlertAction.cancel()
         ).show()
     }
     
+    private func exportLogAsCsv() {
+        let csv = presenter.exportLogAsCsv(log)
+        
+        share(csv)
+    }
+    
     private func exportLogForPrinting() {
         let logString = presenter.exportLogAsString(log)
         
+        share(logString)
+    }
+    
+    private func share(_ text: String) {
         let attributes = [NSAttributedString.Key : Any]()
-        let string = NSAttributedString(string: logString, attributes: attributes)
+        let string = NSAttributedString(string: text, attributes: attributes)
         let print = UISimpleTextPrintFormatter(attributedText: string)
         
         
-        let activityViewController = UIActivityViewController(activityItems: [ logString, print ], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [ text, print ], applicationActivities: nil)
         
         let viewController = SceneDelegate.rootViewController
         

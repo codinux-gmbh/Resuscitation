@@ -86,4 +86,8 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         NSLog("Error occured during playback: \(error)")
     }
     
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        player.stop() // otherwise audioPlayer.isPlaying still returns true!
+    }
+    
 }

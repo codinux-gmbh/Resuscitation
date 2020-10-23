@@ -75,6 +75,11 @@ struct LogDialog: View {
                 .disabled(log.audioFilename == nil)
             }
         }
+        .onDisappear {
+            if audioPlayer.isPlaying {
+                audioPlayer.stop()
+            }
+        }
     }
     
     

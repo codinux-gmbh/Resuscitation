@@ -29,6 +29,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     func play(_ file: URL, _ result: ((Bool) -> Void)? = nil) {
         if isPaused {
             if let successful = audioPlayer?.play() {
+                self.isPaused = false
                 result?(successful)
                 return
             }
@@ -94,6 +95,7 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         self.didFinishPlayback = flag
+        self.isPaused = false
 
         player.stop() // otherwise audioPlayer.isPlaying still returns true!
     }

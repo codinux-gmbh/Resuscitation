@@ -47,86 +47,86 @@ struct CodeDialog: View {
 
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("Total time")
+        ScrollView {
+            VStack {
+                HStack {
+                    Text("Total time")
+                    
+                    Spacer()
+                    
+                    Text(durationString).onReceive(timer) { _ in
+                        durationString = formatDurationString(startTime)
+                        
+                        if audioRecorder.isRecording {
+                            self.audioRecordDurationString = formatDurationString(startTime)
+                        }
+                    }
+                    .font(Font.body.monospacedDigit())
+                }
+                .frame(height: 30)
+                .padding(.top, 20)
+                .padding(.horizontal, 12)
                 
                 Spacer()
                 
-                Text(durationString).onReceive(timer) { _ in
-                    durationString = formatDurationString(startTime)
+                VStack { // needed as a SwiftUI stack can handle only approximately 10 children
+                    ResuscitationButton("Rhythm Analysis", Self.FullScreenButtonsWidth, Self.ButtonHeight, { self.rhythmAnalysis() })
+                        .padding(.bottom, Self.SpaceBetweenButtons)
                     
-                    if audioRecorder.isRecording {
-                        self.audioRecordDurationString = formatDurationString(startTime)
+                    Spacer()
+                    
+                    HStack {
+                        ResuscitationButton("Shock", self.shock)
+                        
+                        Spacer()
+                        
+                        ResuscitationButton("Adrenalin", self.adrenalin)
+                    }
+                    .padding(.bottom, Self.SpaceBetweenButtons)
+                    
+                    HStack {
+                        ResuscitationButton("Amiodaron", self.amiodaron)
+                        
+                        Spacer()
+                        
+                        ResuscitationButton("IO/IV", self.ioIv)
+                    }
+                    .padding(.bottom, Self.SpaceBetweenButtons)
+
+                    HStack {
+                        ResuscitationButton("Airway", self.airway)
+
+                        Spacer()
+
+                        ResuscitationButton("LUCAS", self.lucas)
                     }
                 }
-                .font(Font.body.monospacedDigit())
-            }
-            .frame(height: 30)
-            .padding(.top, 20)
-            .padding(.horizontal, 12)
-            
-            Spacer()
-            
-            VStack { // needed as a SwiftUI stack can handle only approximately 10 children
-                Button("Rhythm Analysis", action: { self.rhythmAnalysis() })
-                    .frame(width: Self.FullScreenButtonsWidth, height: Self.ButtonHeight)
                 
                 Spacer()
                 
                 HStack {
-                    LeftHalfScreenWidthButton("Shock", self.shock)
+                    Text("Recording") // TODO: change state if stop is pressed
+                    
+                    Button(action: { self.audioRecorder.stopRecording() }) {
+                        Image(systemName: "stop.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .accentColor(Color.red)
+                    }
                     
                     Spacer()
                     
-                    RightHalfScreenWidthButton("Adrenalin", self.adrenalin)
+                    Text(audioRecordDurationString)
                 }
+                .disabled(self.audioRecorder.isRecording == false)
+                .padding()
+                .padding(.vertical, 12)
                 
                 Spacer()
                 
-                HStack {
-                    LeftHalfScreenWidthButton("Amiodaron", self.amiodaron)
-                    
-                    Spacer()
-                    
-                    RightHalfScreenWidthButton("IO/IV", self.ioIv)
-                }
-                
-                Spacer()
-
-                HStack {
-                    LeftHalfScreenWidthButton("Airway", self.airway)
-
-                    Spacer()
-
-                    RightHalfScreenWidthButton("LUCAS", self.lucas)
-                }
+                ResuscitationButton("R O S C", Self.FullScreenButtonsWidth, Self.ButtonHeight, self.stopResuscitation)
+                    .padding(.bottom, 6)
             }
-            
-            Spacer()
-            
-            HStack {
-                Text("Recording") // TODO: change state if stop is pressed
-                
-                Button(action: { self.audioRecorder.stopRecording() }) {
-                    Image(systemName: "stop.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .accentColor(Color.red)
-                }
-                
-                Spacer()
-                
-                Text(audioRecordDurationString)
-            }
-            .disabled(self.audioRecorder.isRecording == false)
-            .padding()
-            .padding(.vertical, 12)
-            
-            Spacer()
-            
-            Button("R O S C", action: self.stopResuscitation)
-                .frame(width: Self.FullScreenButtonsWidth, height: Self.ButtonHeight)
         }
         .hideNavigationBar()
     }

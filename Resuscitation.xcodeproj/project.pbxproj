@@ -26,8 +26,7 @@
 		36B70F22253272C800734588 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F21253272C800734588 /* ViewExtensions.swift */; };
 		36B70F27253275CC00734588 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F26253275CC00734588 /* Presenter.swift */; };
 		36B70F2C2532764300734588 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F2B2532764300734588 /* DependencyInjector.swift */; };
-		36B70F312532771200734588 /* LeftHalfScreenWidthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F302532771200734588 /* LeftHalfScreenWidthButton.swift */; };
-		36B70F37253278F000734588 /* RightHalfScreenWidthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F36253278F000734588 /* RightHalfScreenWidthButton.swift */; };
+		36B70F312532771200734588 /* ResuscitationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F302532771200734588 /* ResuscitationButton.swift */; };
 		36B70F402532890800734588 /* ResuscitationPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F3F2532890800734588 /* ResuscitationPersistence.swift */; };
 		36B70F4825328A9500734588 /* LogEntryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F4725328A9500734588 /* LogEntryType.swift */; };
 		36B70F4E25328BB200734588 /* ResuscitationLogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F4D25328BB200734588 /* ResuscitationLogInfo.swift */; };
@@ -87,8 +86,7 @@
 		36B70F21253272C800734588 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		36B70F26253275CC00734588 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		36B70F2B2532764300734588 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
-		36B70F302532771200734588 /* LeftHalfScreenWidthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftHalfScreenWidthButton.swift; sourceTree = "<group>"; };
-		36B70F36253278F000734588 /* RightHalfScreenWidthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightHalfScreenWidthButton.swift; sourceTree = "<group>"; };
+		36B70F302532771200734588 /* ResuscitationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResuscitationButton.swift; sourceTree = "<group>"; };
 		36B70F3F2532890800734588 /* ResuscitationPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResuscitationPersistence.swift; sourceTree = "<group>"; };
 		36B70F4725328A9500734588 /* LogEntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntryType.swift; sourceTree = "<group>"; };
 		36B70F4D25328BB200734588 /* ResuscitationLogInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResuscitationLogInfo.swift; sourceTree = "<group>"; };
@@ -235,8 +233,7 @@
 			children = (
 				36B70F7A2532A79D00734588 /* UIKit */,
 				36B70F5A2532927500734588 /* LazyView.swift */,
-				36B70F302532771200734588 /* LeftHalfScreenWidthButton.swift */,
-				36B70F36253278F000734588 /* RightHalfScreenWidthButton.swift */,
+				36B70F302532771200734588 /* ResuscitationButton.swift */,
 				3667124F2537C9D900BD2301 /* ButtonWithCounter.swift */,
 			);
 			path = views;
@@ -407,13 +404,12 @@
 				366712502537C9D900BD2301 /* ButtonWithCounter.swift in Sources */,
 				36B70F27253275CC00734588 /* Presenter.swift in Sources */,
 				36B70F402532890800734588 /* ResuscitationPersistence.swift in Sources */,
-				36B70F312532771200734588 /* LeftHalfScreenWidthButton.swift in Sources */,
+				36B70F312532771200734588 /* ResuscitationButton.swift in Sources */,
 				36B70EB3253265D100734588 /* AppDelegate.swift in Sources */,
 				36B70EFB253268BB00734588 /* SettingsDialog.swift in Sources */,
 				36B70F752532A71C00734588 /* UIKitExtensions.swift in Sources */,
 				36B70F8F2532A81700734588 /* UIAlert.swift in Sources */,
 				36B70F9F2532AE9900734588 /* Message.swift in Sources */,
-				36B70F37253278F000734588 /* RightHalfScreenWidthButton.swift in Sources */,
 				36B70F5625328C7600734588 /* CoreDataExtensions.swift in Sources */,
 				36B70F22253272C800734588 /* ViewExtensions.swift in Sources */,
 				36B70EEB253267F200734588 /* CodeDialog.swift in Sources */,

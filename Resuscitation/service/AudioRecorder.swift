@@ -10,8 +10,19 @@ class AudioRecorder : NSObject, AVAudioRecorderDelegate {
         return audioRecorder?.isRecording ?? false
     }
     
+    var duration: TimeInterval {
+        return audioRecorder?.currentTime ?? 0
+    }
+    
     
     func record(_ file: URL) {
+        if let audioRecorder = audioRecorder { // resume recording
+            if audioRecorder.isRecording == false {
+                audioRecorder.record()
+                return
+            }
+        }
+        
         AVCaptureDevice.requestAccess(for: .audio) { granted in
             if granted {
                 DispatchQueue.main.async { // completionHandler is called on an arbitrary dispatch queue
@@ -46,7 +57,13 @@ class AudioRecorder : NSObject, AVAudioRecorderDelegate {
     }
     
     
-    func stopRecording() {
+    func pause() {
+        if isRecording {
+            audioRecorder?.pause()
+        }
+    }
+    
+    func stop() {
         if isRecording {
             audioRecorder.stop()
             audioRecorder = nil // TODO: remove if should be able to resume audio recording

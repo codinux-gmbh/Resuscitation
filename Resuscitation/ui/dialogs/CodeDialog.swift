@@ -18,6 +18,8 @@ struct CodeDialog: View {
     
     private let log: ResuscitationLog
     
+    private let audioFilename: String
+    
     private let startTime = Date()
     
     @State private var durationMillis: UInt64 = 0
@@ -35,15 +37,13 @@ struct CodeDialog: View {
     init(_ presenter: Presenter) {
         self.presenter = presenter
         
-        let audioFilename = "code_record_\(presenter.formatDateTime(Date())).mp4"
+        self.audioFilename = "code_record_\(presenter.formatDateTime(Date())).mp4"
         
         self.log = presenter.createNewResuscitationLog(startTime, audioFilename)
         
-        if let audioPath = presenter.getAudioPath(audioFilename) {
-            audioRecorder.record(audioPath)
-        }
-        
         presenter.preventScreenLock()
+        
+        startRecording()
     }
 
     
@@ -56,10 +56,10 @@ struct CodeDialog: View {
                     Spacer()
                     
                     Text(durationString).onReceive(timer) { _ in
-                        durationString = formatDurationString(startTime)
+                        durationString = presenter.formatDuration(startTime)
                         
                         if audioRecorder.isRecording {
-                            self.audioRecordDurationString = formatDurationString(startTime)
+                            self.audioRecordDurationString = presenter.formatDuration(audioRecorder.duration)
                         }
                     }
                     .monospaceFont()
@@ -108,10 +108,10 @@ struct CodeDialog: View {
                 HStack {
                     Text("Recording") // TODO: change state if stop is pressed
                     
-                    Button(action: { self.stopRecording() }) {
-                        Image(systemName: "stop.fill")
+                    Button(action: { self.toggleRecording() }) {
+                        Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
                             .resizable()
-                            .frame(width: 20, height: 20)
+                            .frame(width: 35, height: 35)
                             .accentColor(Color.red)
                     }
                     
@@ -120,7 +120,6 @@ struct CodeDialog: View {
                     Text(audioRecordDurationString)
                         .monospaceFont()
                 }
-                .disabled(self.audioRecorder.isRecording == false)
                 .padding()
                 .padding(.vertical, 12)
                 
@@ -173,18 +172,29 @@ struct CodeDialog: View {
         presentation.wrappedValue.dismiss()
     }
     
+    
+    private func toggleRecording() {
+        if audioRecorder.isRecording {
+            audioRecorder.pause()
+        }
+        else {
+            startRecording()
+        }
+    }
+    
+    private func startRecording() {
+        if let audioPath = presenter.getAudioPath(audioFilename) {
+            audioRecorder.record(audioPath)
+        }
+    }
+    
     private func stopRecording() {
-        audioRecorder.stopRecording()
+        audioRecorder.stop()
     }
     
     
     private func addLogEntry(_ type: LogEntryType) {
         presenter.addLogEntry(log, Date(), type)
-    }
-    
-    
-    private func formatDurationString(_ startTime: Date) -> String {
-        return presenter.formatDuration(startTime)
     }
 
 }

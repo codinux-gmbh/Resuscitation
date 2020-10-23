@@ -78,9 +78,7 @@ struct LogDialog: View {
             }
         }
         .onDisappear {
-            if isPlaying {
-                audioPlayer.stop()
-            }
+            audioPlayer.stop()
         }
     }
     

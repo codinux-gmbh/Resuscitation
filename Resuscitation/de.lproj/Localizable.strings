@@ -18,11 +18,13 @@
 "IO/IV" = "IO/IV";
 "Airway" = "Atemwege";
 "LUCAS" = "LUCAS";
+"Recording" = "Live on air";
 "R O S C" = "Beenden";
 
 
 /*      LogDialog       */
 
 "Export" = "Exportieren";
+"Audio" = "Audio";
 "Print (PDF)" = "Drucken (PDF)";
 "CSV" = "CSV";

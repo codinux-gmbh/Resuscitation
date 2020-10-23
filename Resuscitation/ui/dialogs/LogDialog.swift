@@ -12,6 +12,8 @@ struct LogDialog: View {
     
     private let presenter: Presenter
     
+    private let audioPlayer = AudioPlayer()
+    
     
     private let log: ResuscitationLog
     
@@ -52,6 +54,15 @@ struct LogDialog: View {
             Section {
                 Button("Export", action: self.showExportLogOptionsActionSheet)
                     .frame(width: Self.screenWidth, height: 50, alignment: .center)
+            }
+            
+            Section(header: Text("Audio")) {
+                HStack {
+                    Button(action: { self.audioPlayer.play(log.audioPath!) }) {
+                        Image(systemName: "play.fill")
+                    }
+                }
+                .disabled(log.audioPath == nil)
             }
         }
     }

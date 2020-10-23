@@ -30,9 +30,10 @@ class ResuscitationPersistence {
     
     
     
-    func createNewResuscitationLog(_ startTime: Date) -> ResuscitationLog {
+    func createNewResuscitationLog(_ startTime: Date, _ audioPath: URL? = nil) -> ResuscitationLog {
         let newLog = ResuscitationLog(context: context)
         newLog.startTime = startTime
+        newLog.audioPath = audioPath
         
         context.insert(newLog)
         

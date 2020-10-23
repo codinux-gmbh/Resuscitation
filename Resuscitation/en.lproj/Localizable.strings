@@ -18,11 +18,13 @@
 "IO/IV" = "IO/IV";
 "Airway" = "Airway";
 "LUCAS" = "LUCAS";
+"Recording" = "Recording";
 "R O S C" = "R O S C";
 
 
 /*      LogDialog       */
 
 "Export" = "Export";
+"Audio" = "Audio";
 "Print (PDF)" = "Print (PDF)";
 "CSV" = "CSV";

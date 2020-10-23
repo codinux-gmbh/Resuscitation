@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		366712502537C9D900BD2301 /* ButtonWithCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667124F2537C9D900BD2301 /* ButtonWithCounter.swift */; };
+		366713022542FB6E00BD2301 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366713012542FB6E00BD2301 /* AudioRecorder.swift */; };
+		36671307254306D900BD2301 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36671306254306D900BD2301 /* AudioPlayer.swift */; };
 		36B70EB3253265D100734588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB2253265D100734588 /* AppDelegate.swift */; };
 		36B70EB5253265D100734588 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB4253265D100734588 /* SceneDelegate.swift */; };
 		36B70EB7253265D100734588 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB6253265D100734588 /* ContentView.swift */; };
@@ -37,6 +40,7 @@
 		36B70F7C2532A7AC00734588 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F7B2532A7AC00734588 /* ActionSheet.swift */; };
 		36B70F872532A7E700734588 /* UIAlertBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F862532A7E700734588 /* UIAlertBase.swift */; };
 		36B70F8F2532A81700734588 /* UIAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F8E2532A81700734588 /* UIAlert.swift */; };
+		36B70F9F2532AE9900734588 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F9E2532AE9900734588 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3667124F2537C9D900BD2301 /* ButtonWithCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithCounter.swift; sourceTree = "<group>"; };
+		366713012542FB6E00BD2301 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		36671306254306D900BD2301 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		36B70EAF253265D100734588 /* Resuscitation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resuscitation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B70EB2253265D100734588 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36B70EB4253265D100734588 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +101,7 @@
 		36B70F7B2532A7AC00734588 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
 		36B70F862532A7E700734588 /* UIAlertBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertBase.swift; sourceTree = "<group>"; };
 		36B70F8E2532A81700734588 /* UIAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlert.swift; sourceTree = "<group>"; };
+		36B70F9E2532AE9900734588 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +129,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		366713002542FB5A00BD2301 /* service */ = {
+			isa = PBXGroup;
+			children = (
+				366713012542FB6E00BD2301 /* AudioRecorder.swift */,
+				36671306254306D900BD2301 /* AudioPlayer.swift */,
+			);
+			path = service;
+			sourceTree = "<group>";
+		};
 		36B70EA6253265D100734588 = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +163,7 @@
 			children = (
 				36B70F4C25328B9700734588 /* model */,
 				36B70F3E253288F500734588 /* persistence */,
+				366713002542FB5A00BD2301 /* service */,
 				36B70EE8253267D700734588 /* ui */,
 				36B70EB2253265D100734588 /* AppDelegate.swift */,
 				36B70EB4253265D100734588 /* SceneDelegate.swift */,
@@ -196,6 +214,7 @@
 				36B70F21253272C800734588 /* ViewExtensions.swift */,
 				36B70F26253275CC00734588 /* Presenter.swift */,
 				36B70F6A25329CE000734588 /* Styles.swift */,
+				36B70F9E2532AE9900734588 /* Message.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -218,6 +237,7 @@
 				36B70F5A2532927500734588 /* LazyView.swift */,
 				36B70F302532771200734588 /* LeftHalfScreenWidthButton.swift */,
 				36B70F36253278F000734588 /* RightHalfScreenWidthButton.swift */,
+				3667124F2537C9D900BD2301 /* ButtonWithCounter.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -383,6 +403,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				366713022542FB6E00BD2301 /* AudioRecorder.swift in Sources */,
+				366712502537C9D900BD2301 /* ButtonWithCounter.swift in Sources */,
 				36B70F27253275CC00734588 /* Presenter.swift in Sources */,
 				36B70F402532890800734588 /* ResuscitationPersistence.swift in Sources */,
 				36B70F312532771200734588 /* LeftHalfScreenWidthButton.swift in Sources */,
@@ -390,6 +412,7 @@
 				36B70EFB253268BB00734588 /* SettingsDialog.swift in Sources */,
 				36B70F752532A71C00734588 /* UIKitExtensions.swift in Sources */,
 				36B70F8F2532A81700734588 /* UIAlert.swift in Sources */,
+				36B70F9F2532AE9900734588 /* Message.swift in Sources */,
 				36B70F37253278F000734588 /* RightHalfScreenWidthButton.swift in Sources */,
 				36B70F5625328C7600734588 /* CoreDataExtensions.swift in Sources */,
 				36B70F22253272C800734588 /* ViewExtensions.swift in Sources */,
@@ -407,6 +430,7 @@
 				36B70F7025329F4300734588 /* SwiftExtensions.swift in Sources */,
 				36B70F632532965900734588 /* LogDialog.swift in Sources */,
 				36B70F5B2532927500734588 /* LazyView.swift in Sources */,
+				36671307254306D900BD2301 /* AudioPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,9 +609,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Resuscitation/Preview Content\"";
-				DEVELOPMENT_TEAM = 2L8U7W4R52;
+				DEVELOPMENT_TEAM = 7WVYN7QA7Z;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Resuscitation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -595,8 +620,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.codinux.Resuscitation;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.codinux.medical.resuscitation2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -607,9 +634,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Resuscitation/Preview Content\"";
-				DEVELOPMENT_TEAM = 2L8U7W4R52;
+				DEVELOPMENT_TEAM = 7WVYN7QA7Z;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Resuscitation/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -617,8 +645,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = net.codinux.Resuscitation;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = net.codinux.medical.resuscitation2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -13,8 +13,8 @@ class Presenter {
     }
     
     
-    func createNewResuscitationLog(_ startTime: Date) -> ResuscitationLog {
-        return persistence.createNewResuscitationLog(startTime)
+    func createNewResuscitationLog(_ startTime: Date, _ audioPath: URL? = nil) -> ResuscitationLog {
+        return persistence.createNewResuscitationLog(startTime, audioPath)
     }
     
     func addLogEntry(_ log: ResuscitationLog, _ time: Date, _ type: LogEntryType) {

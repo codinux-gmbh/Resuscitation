@@ -24,13 +24,25 @@ struct CodeDialog: View {
     
     @State private var durationString: String = "0:00"
     
+    @State private var audioRecordDurationString: String = "0:00"
+    
+    
+    private let audioRecorder = AudioRecorder()
+    
     private let timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
     
     
     init(_ presenter: Presenter) {
         self.presenter = presenter
         
-        self.log = presenter.createNewResuscitationLog(startTime)
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let audioPath = documentsDirectory?.appendingPathComponent("code_record_.mp4")
+        
+        self.log = presenter.createNewResuscitationLog(startTime, audioPath)
+        
+        if let audioPath = audioPath {
+            audioRecorder.record(audioPath)
+        }
     }
 
     
@@ -42,8 +54,11 @@ struct CodeDialog: View {
                 Spacer()
                 
                 Text(durationString).onReceive(timer) { _ in
-                    let secondsSinceStart = Date().timeIntervalSince(startTime)
-                    durationString = String(format: "%02d:%02d", Int(secondsSinceStart / 60), Int(secondsSinceStart.truncatingRemainder(dividingBy: 60)))
+                    durationString = formatDurationString(startTime)
+                    
+                    if audioRecorder.isRecording {
+                        self.audioRecordDurationString = formatDurationString(startTime)
+                    }
                 }
                 .font(Font.body.monospacedDigit())
             }
@@ -87,6 +102,26 @@ struct CodeDialog: View {
                     RightHalfScreenWidthButton("LUCAS", self.lucas)
                 }
             }
+            
+            Spacer()
+            
+            HStack {
+                Text("Recording") // TODO: change state if stop is pressed
+                
+                Button(action: { self.audioRecorder.stopRecording() }) {
+                    Image(systemName: "stop.fill")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .accentColor(Color.red)
+                }
+                
+                Spacer()
+                
+                Text(audioRecordDurationString)
+            }
+            .disabled(self.audioRecorder.isRecording == false)
+            .padding()
+            .padding(.vertical, 12)
             
             Spacer()
             
@@ -134,6 +169,13 @@ struct CodeDialog: View {
     
     private func addLogEntry(_ type: LogEntryType) {
         presenter.addLogEntry(log, Date(), type)
+    }
+    
+    
+    private func formatDurationString(_ startTime: Date) -> String {
+        let secondsSinceStart = Date().timeIntervalSince(startTime)
+        
+        return String(format: "%02d:%02d", Int(secondsSinceStart / 60), Int(secondsSinceStart.truncatingRemainder(dividingBy: 60)))
     }
 
 }

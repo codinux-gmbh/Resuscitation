@@ -52,8 +52,18 @@ struct LogDialog: View {
             }
             
             Section {
-                Button("Export", action: self.showExportLogOptionsActionSheet)
-                    .frame(width: Self.screenWidth, height: 50, alignment: .center)
+                GeometryReader { geometry in
+                    Button(action: self.showExportLogOptionsActionSheet) {
+                        VStack { // boy was that complicated to center the text at least horizontally and almost vertically
+                            Spacer()
+                            
+                            Text("Export")
+                            
+                            Spacer()
+                        }
+                        .frame(width: geometry.size.width)
+                    }
+                }
             }
             
             Section(header: Text("Audio")) {

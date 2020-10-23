@@ -35,12 +35,11 @@ struct CodeDialog: View {
     init(_ presenter: Presenter) {
         self.presenter = presenter
         
-        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-        let audioPath = documentsDirectory?.appendingPathComponent("code_record_.mp4")
+        let audioFilename = "code_record_\(presenter.formatDateTime(Date())).mp4"
         
-        self.log = presenter.createNewResuscitationLog(startTime, audioPath)
+        self.log = presenter.createNewResuscitationLog(startTime, audioFilename)
         
-        if let audioPath = audioPath {
+        if let audioPath = presenter.getAudioPath(audioFilename) {
             audioRecorder.record(audioPath)
         }
         

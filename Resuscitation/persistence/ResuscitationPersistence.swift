@@ -30,10 +30,10 @@ class ResuscitationPersistence {
     
     
     
-    func createNewResuscitationLog(_ startTime: Date, _ audioPath: URL? = nil) -> ResuscitationLog {
+    func createNewResuscitationLog(_ startTime: Date, _ audioFilename: String? = nil) -> ResuscitationLog {
         let newLog = ResuscitationLog(context: context)
         newLog.startTime = startTime
-        newLog.audioPath = audioPath
+        newLog.audioFilename = audioFilename
         
         context.insert(newLog)
         
@@ -62,12 +62,14 @@ class ResuscitationPersistence {
         return newEntry
     }
     
-    func deleteResuscitationLog(_ logId: String) {
+    func deleteResuscitationLog(_ logId: String) -> ResuscitationLog {
         let log = getResuscitationLog(logId)
         
         context.delete(log)
         
         saveChanges()
+        
+        return log
     }
     
     

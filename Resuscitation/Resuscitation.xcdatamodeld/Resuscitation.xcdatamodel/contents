@@ -5,7 +5,7 @@
         <attribute name="type" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="ResuscitationLog" representedClassName="ResuscitationLog" syncable="YES" codeGenerationType="class">
-        <attribute name="audioPath" optional="YES" attributeType="URI" defaultValueString="nil"/>
+        <attribute name="audioFilename" optional="YES" attributeType="String" defaultValueString="nil"/>
         <attribute name="endTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="startTime" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="logEntries" toMany="YES" deletionRule="Cascade" destinationEntity="LogEntry"/>

@@ -68,15 +68,21 @@ struct LogDialog: View {
             
             Section(header: Text("Audio")) {
                 HStack {
-                    Button(action: { self.audioPlayer.play(log.audioPath!) }) {
+                    Button(action: self.startPlaying) {
                         Image(systemName: "play.fill")
                     }
                 }
-                .disabled(log.audioPath == nil)
+                .disabled(log.audioFilename == nil)
             }
         }
     }
     
+    
+    private func startPlaying() {
+        if let audioFilename = log.audioFilename, let audioPath = presenter.getAudioPath(audioFilename) {
+            audioPlayer.play(audioPath)
+        }
+    }
     
     
     private func showExportLogOptionsActionSheet() {

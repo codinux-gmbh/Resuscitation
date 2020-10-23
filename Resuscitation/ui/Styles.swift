@@ -15,17 +15,24 @@ class Styles {
         return "HH:mm:ss"
     }
     
+    static public var DateTimeFormat: String {
+        return "yyyy-MM-dd'T'HH:mm:ss"
+    }
+    
     static public let LogDateFormatter = DateFormatter() // prefixed with 'Log' to avoid naming conflict with DateFormatter
     
     static public let TimeFormatter = DateFormatter()
     
     static public let TimeFormatterWithSeconds = DateFormatter()
     
+    static public let DateTimeFormatter = DateFormatter()
+    
     
     static func initialize() {
         LogDateFormatter.dateFormat = DateFormat
         TimeFormatter.dateFormat = TimeFormat
         TimeFormatterWithSeconds.dateFormat = TimeFormatWithSeconds
+        DateTimeFormatter.dateFormat = DateTimeFormat
     }
     
 }

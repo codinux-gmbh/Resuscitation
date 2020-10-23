@@ -13,8 +13,8 @@ class Presenter {
     }
     
     
-    func createNewResuscitationLog(_ startTime: Date, _ audioPath: URL? = nil) -> ResuscitationLog {
-        return persistence.createNewResuscitationLog(startTime, audioPath)
+    func createNewResuscitationLog(_ startTime: Date, _ audioFilename: String? = nil) -> ResuscitationLog {
+        return persistence.createNewResuscitationLog(startTime, audioFilename)
     }
     
     func addLogEntry(_ log: ResuscitationLog, _ time: Date, _ type: LogEntryType) {
@@ -28,7 +28,15 @@ class Presenter {
     }
     
     func deleteResuscitationLog(_ logInfo: ResuscitationLogInfo) {
-        return persistence.deleteResuscitationLog(logInfo.id)
+        let log = persistence.deleteResuscitationLog(logInfo.id)
+        
+        if let audioFilename = log.audioFilename, let audioPath = getAudioPath(audioFilename) {
+            do {
+                try FileManager.default.removeItem(at: audioPath)
+            } catch {
+                NSLog("Could not delete audio file \(audioFilename): \(error)")
+            }
+        }
     }
     
     
@@ -38,6 +46,13 @@ class Presenter {
     
     func getResuscitationLog(_ logInfo: ResuscitationLogInfo) -> ResuscitationLog {
         return persistence.getResuscitationLog(logInfo.id)
+    }
+    
+    
+    func getAudioPath(_ audioFilename: String) -> URL? {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        return documentsDirectory?.appendingPathComponent(audioFilename)
     }
     
     
@@ -94,6 +109,10 @@ class Presenter {
     
     func formatTimeWithSeconds(_ time: Date?) -> String {
         return Styles.TimeFormatterWithSeconds.string(from: time!)
+    }
+    
+    func formatDateTime(_ date: Date?) -> String {
+        return Styles.DateTimeFormatter.string(from: date!)
     }
     
     func formatDuration(_ startTime: Date) -> String {

@@ -15,7 +15,13 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     
     private (set) var isPaused: Bool = false
     
+    private (set) var didFinishPlayback: Bool = false
+    
     var currentTimeSeconds: TimeInterval {
+        if didFinishPlayback {
+            return audioPlayer?.duration ?? 0
+        }
+        
         return audioPlayer?.currentTime ?? 0
     }
     
@@ -87,6 +93,8 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        self.didFinishPlayback = flag
+
         player.stop() // otherwise audioPlayer.isPlaying still returns true!
     }
     

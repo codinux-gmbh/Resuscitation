@@ -111,7 +111,7 @@ struct CodeDialog: View {
                     Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
                         .resizable()
                         .frame(width: 35, height: 35)
-                        .accentColor(Color.red)
+                        .foregroundColor(.red)
                     
                     Spacer()
                     

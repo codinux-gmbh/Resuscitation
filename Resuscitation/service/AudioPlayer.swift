@@ -24,6 +24,9 @@ class AudioPlayer {
     private func playWithPermissionGranted(_ file: URL) {
         let session = AVAudioSession.sharedInstance()
         do {
+            try session.setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
+            try session.setActive(true)
+            
             audioPlayer = try AVAudioPlayer(contentsOf: file)
             audioPlayer.prepareToPlay()
             audioPlayer.play()

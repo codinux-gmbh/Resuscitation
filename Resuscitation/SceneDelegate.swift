@@ -36,8 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let presenter = Presenter(persistence)
         
-        presenter.preventScreenLock()
-        
         DependencyInjector.register(dependency: presenter)
     }
     

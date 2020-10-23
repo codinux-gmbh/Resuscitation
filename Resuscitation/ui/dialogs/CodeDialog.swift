@@ -43,6 +43,8 @@ struct CodeDialog: View {
         if let audioPath = audioPath {
             audioRecorder.record(audioPath)
         }
+        
+        presenter.preventScreenLock()
     }
 
     
@@ -128,6 +130,9 @@ struct CodeDialog: View {
                 StandardButton("R O S C", Self.FullScreenButtonsWidth, self.stopResuscitation)
                     .padding(.bottom, 6)
             }
+        }
+        .onDisappear {
+            presenter.reenableScreenLock()
         }
         .hideNavigationBar()
     }

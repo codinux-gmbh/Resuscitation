@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		366712502537C9D900BD2301 /* ButtonWithCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667124F2537C9D900BD2301 /* ButtonWithCounter.swift */; };
 		366713022542FB6E00BD2301 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366713012542FB6E00BD2301 /* AudioRecorder.swift */; };
 		36671307254306D900BD2301 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36671306254306D900BD2301 /* AudioPlayer.swift */; };
+		3667131525432A1400BD2301 /* StandardBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667131425432A1400BD2301 /* StandardBorder.swift */; };
+		3667132C2543440700BD2301 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667132B2543440700BD2301 /* ProgressBar.swift */; };
 		36B70EB3253265D100734588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB2253265D100734588 /* AppDelegate.swift */; };
 		36B70EB5253265D100734588 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB4253265D100734588 /* SceneDelegate.swift */; };
 		36B70EB7253265D100734588 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB6253265D100734588 /* ContentView.swift */; };
@@ -60,9 +61,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3667124F2537C9D900BD2301 /* ButtonWithCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithCounter.swift; sourceTree = "<group>"; };
 		366713012542FB6E00BD2301 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		36671306254306D900BD2301 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		3667131425432A1400BD2301 /* StandardBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardBorder.swift; sourceTree = "<group>"; };
+		3667132B2543440700BD2301 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		36B70EAF253265D100734588 /* Resuscitation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resuscitation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B70EB2253265D100734588 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36B70EB4253265D100734588 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,7 +236,8 @@
 				36B70F7A2532A79D00734588 /* UIKit */,
 				36B70F5A2532927500734588 /* LazyView.swift */,
 				36B70F302532771200734588 /* StandardButton.swift */,
-				3667124F2537C9D900BD2301 /* ButtonWithCounter.swift */,
+				3667131425432A1400BD2301 /* StandardBorder.swift */,
+				3667132B2543440700BD2301 /* ProgressBar.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -401,7 +404,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				366713022542FB6E00BD2301 /* AudioRecorder.swift in Sources */,
-				366712502537C9D900BD2301 /* ButtonWithCounter.swift in Sources */,
 				36B70F27253275CC00734588 /* Presenter.swift in Sources */,
 				36B70F402532890800734588 /* ResuscitationPersistence.swift in Sources */,
 				36B70F312532771200734588 /* StandardButton.swift in Sources */,
@@ -415,6 +417,7 @@
 				36B70EEB253267F200734588 /* CodeDialog.swift in Sources */,
 				36B70EB5253265D100734588 /* SceneDelegate.swift in Sources */,
 				36B70F7C2532A7AC00734588 /* ActionSheet.swift in Sources */,
+				3667132C2543440700BD2301 /* ProgressBar.swift in Sources */,
 				36B70F4E25328BB200734588 /* ResuscitationLogInfo.swift in Sources */,
 				36B70F2C2532764300734588 /* DependencyInjector.swift in Sources */,
 				36B70EB7253265D100734588 /* ContentView.swift in Sources */,
@@ -426,6 +429,7 @@
 				36B70F7025329F4300734588 /* SwiftExtensions.swift in Sources */,
 				36B70F632532965900734588 /* LogDialog.swift in Sources */,
 				36B70F5B2532927500734588 /* LazyView.swift in Sources */,
+				3667131525432A1400BD2301 /* StandardBorder.swift in Sources */,
 				36671307254306D900BD2301 /* AudioPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

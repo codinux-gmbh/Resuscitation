@@ -61,7 +61,7 @@ struct CodeDialog: View {
                             self.audioRecordDurationString = formatDurationString(startTime)
                         }
                     }
-                    .font(Font.body.monospacedDigit())
+                    .monospaceFont()
                 }
                 .frame(height: 30)
                 .padding(.top, 20)
@@ -70,17 +70,17 @@ struct CodeDialog: View {
                 Spacer()
                 
                 VStack { // needed as a SwiftUI stack can handle only approximately 10 children
-                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, { self.rhythmAnalysis() })
+                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, 120, self.rhythmAnalysis)
                         .padding(.bottom, Self.SpaceBetweenButtons)
                     
                     Spacer()
                     
                     HStack {
-                        StandardButton("Shock", self.shock)
+                        StandardButton("Shock", 180, self.shock)
                         
                         Spacer()
                         
-                        StandardButton("Adrenalin", self.adrenalin)
+                        StandardButton("Adrenalin", 120, self.adrenalin)
                     }
                     .padding(.bottom, Self.SpaceBetweenButtons)
                     
@@ -117,6 +117,7 @@ struct CodeDialog: View {
                     Spacer()
                     
                     Text(audioRecordDurationString)
+                        .monospaceFont()
                 }
                 .disabled(self.audioRecorder.isRecording == false)
                 .padding()
@@ -173,9 +174,7 @@ struct CodeDialog: View {
     
     
     private func formatDurationString(_ startTime: Date) -> String {
-        let secondsSinceStart = Date().timeIntervalSince(startTime)
-        
-        return String(format: "%02d:%02d", Int(secondsSinceStart / 60), Int(secondsSinceStart.truncatingRemainder(dividingBy: 60)))
+        return presenter.formatDuration(startTime)
     }
 
 }

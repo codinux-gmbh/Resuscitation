@@ -92,6 +92,20 @@ class Presenter {
         return Styles.TimeFormatterWithSeconds.string(from: time!)
     }
     
+    func formatDuration(_ startTime: Date) -> String {
+        let secondsSinceStart = Date().timeIntervalSince(startTime)
+        
+        return formatDuration(secondsSinceStart)
+    }
+    
+    func formatDuration(_ seconds: Int, _ countDecimalPlacesForMinutes: Int = 2) -> String {
+        return formatDuration(Double(seconds), countDecimalPlacesForMinutes)
+    }
+    
+    func formatDuration(_ seconds: Double, _ countDecimalPlacesForMinutes: Int = 2) -> String {
+        return String(format: "%0\(countDecimalPlacesForMinutes)d:%02d", Int(seconds / 60), abs(Int(seconds.truncatingRemainder(dividingBy: 60))))
+    }
+    
     
     func preventScreenLock() {
         UIApplication.shared.isIdleTimerDisabled = true

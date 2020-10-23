@@ -28,4 +28,19 @@ extension View {
             .navigationBarTitle(title, displayMode: displayMode)
     }
     
+    
+    func monospaceFont() -> some View {
+        return self
+            .font(Font.body.monospacedDigit())
+    }
+
+
+    func alignHorizontally(_ alignment: Alignment) -> some View {
+        return self.frame(maxWidth: .infinity, alignment: alignment)
+    }
+
+    func alignVertically(_ alignment: Alignment) -> some View {
+        return self.frame(maxHeight: .infinity, alignment: alignment)
+    }
+    
 }

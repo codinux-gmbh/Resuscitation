@@ -25,6 +25,14 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
         return audioPlayer?.currentTime ?? 0
     }
     
+    var progress: CGFloat {
+        if let duration = audioPlayer?.duration {
+            return CGFloat(currentTimeSeconds / duration)
+        }
+        
+        return 0
+    }
+    
     
     func play(_ file: URL, _ result: ((Bool) -> Void)? = nil) {
         if isPaused {
@@ -60,6 +68,9 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
             audioPlayer.delegate = self
             audioPlayer.prepareToPlay()
             
+            self.isPaused = false
+            self.didFinishPlayback = false
+            
             return audioPlayer.play()
         }
         catch {
@@ -85,6 +96,20 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
             
             try? session?.setActive(false, options: .notifyOthersOnDeactivation)
             session = nil
+        }
+    }
+    
+    
+    func setProgress(_ progress: CGFloat) {
+        if let audioPlayer = audioPlayer {
+            audioPlayer.currentTime = TimeInterval(audioPlayer.duration * Double(progress))
+            
+            if audioPlayer.isPlaying == false {
+                audioPlayer.play()
+                
+                self.isPaused = false
+                self.didFinishPlayback = false
+            }
         }
     }
     

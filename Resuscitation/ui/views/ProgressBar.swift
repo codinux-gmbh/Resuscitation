@@ -8,9 +8,12 @@ struct ProgressBar: View {
     
     @Binding private var progress: CGFloat
     
+    private let isOriginOnTheRight: Bool
     
-    init(_ progress: Binding<CGFloat>) {
+    
+    init(_ progress: Binding<CGFloat>, _ isOriginOnTheRight: Bool = false) {
         self._progress = progress
+        self.isOriginOnTheRight = isOriginOnTheRight
     }
     
 
@@ -21,7 +24,7 @@ struct ProgressBar: View {
                 createBar(.gray, geometry.size.width)
                 
                 createBar(.blue, geometry.size.width * progress)
-                    .alignHorizontally(.trailing)
+                    .alignHorizontally(isOriginOnTheRight ? .trailing : .leading)
             }
         }
     }

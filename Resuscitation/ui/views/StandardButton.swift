@@ -77,7 +77,7 @@ struct StandardButton: View {
                     
                     if lastButtonClick != nil {
                         HStack {
-                            ProgressBar($countDown)
+                            ProgressBar($countDown, true)
                             
                             Spacer()
                             

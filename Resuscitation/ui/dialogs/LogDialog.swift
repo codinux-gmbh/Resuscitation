@@ -14,6 +14,8 @@ struct LogDialog: View {
     
     private let audioPlayer = AudioPlayer()
     
+    @State private var playbackProgress: CGFloat = 0
+    
     @State private var playbackTime: String = ""
     
     private let timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
@@ -78,10 +80,27 @@ struct LogDialog: View {
                         Image(systemName: audioPlayer.isPlaying ? "pause.fill" : "play.fill")
                     }
                     
-                    Spacer()
+                    Group {
+                        VStack { // needed to center ProgressBar vertically
+                            Spacer()
+                            
+                            GeometryReader { geometry in
+                                ProgressBar($playbackProgress)
+                                    .frame(height: 20)
+                                    .padding(.leading, 6)
+                                    .gesture(DragGesture(minimumDistance: 0).onEnded { gesture in
+                                        let relativePosition = gesture.startLocation.x / geometry.size.width
+                                        self.setPlaybackToPosition(relativePosition)
+                                    })
+                            }
+                            
+                            Spacer()
+                        }
+                    }
                     
                     Text(playbackTime).onReceive(timer) { _ in
                         playbackTime = presenter.formatDuration(audioPlayer.currentTimeSeconds)
+                        playbackProgress = audioPlayer.progress
                     }
                     .monospaceFont()
                 }
@@ -103,14 +122,27 @@ struct LogDialog: View {
         }
     }
     
-    private func startPlayback() {
+    private func startPlayback(_ result: ((Bool) -> Void)? = nil) {
         if let audioFilename = log.audioFilename, let audioPath = presenter.getAudioPath(audioFilename) {
-            audioPlayer.play(audioPath)
+            audioPlayer.play(audioPath, result)
         }
     }
     
     private func pausePlayback() {
         audioPlayer.pause()
+    }
+    
+    private func setPlaybackToPosition(_ progress: CGFloat) {
+        if audioPlayer.isPlaying == false {
+            startPlayback { success in
+                if success {
+                    self.audioPlayer.setProgress(progress)
+                }
+            }
+        }
+        else {
+            self.audioPlayer.setProgress(progress)
+        }
     }
     
     

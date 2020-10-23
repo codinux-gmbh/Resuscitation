@@ -36,7 +36,7 @@ struct LogDialog: View {
                 
                 Spacer()
                 
-                Text(presenter.formatTime(log.startTime))
+                Text(presenter.formatTimeWithSeconds(log.startTime))
             }
             
             Section {

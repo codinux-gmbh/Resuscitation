@@ -70,35 +70,35 @@ struct CodeDialog: View {
                 Spacer()
                 
                 VStack { // needed as a SwiftUI stack can handle only approximately 10 children
-                    ResuscitationButton("Rhythm Analysis", Self.FullScreenButtonsWidth, Self.ButtonHeight, { self.rhythmAnalysis() })
+                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, Self.ButtonHeight, { self.rhythmAnalysis() })
                         .padding(.bottom, Self.SpaceBetweenButtons)
                     
                     Spacer()
                     
                     HStack {
-                        ResuscitationButton("Shock", self.shock)
+                        StandardButton("Shock", self.shock)
                         
                         Spacer()
                         
-                        ResuscitationButton("Adrenalin", self.adrenalin)
+                        StandardButton("Adrenalin", self.adrenalin)
                     }
                     .padding(.bottom, Self.SpaceBetweenButtons)
                     
                     HStack {
-                        ResuscitationButton("Amiodaron", self.amiodaron)
+                        StandardButton("Amiodaron", self.amiodaron)
                         
                         Spacer()
                         
-                        ResuscitationButton("IO/IV", self.ioIv)
+                        StandardButton("IO/IV", self.ioIv)
                     }
                     .padding(.bottom, Self.SpaceBetweenButtons)
 
                     HStack {
-                        ResuscitationButton("Airway", self.airway)
+                        StandardButton("Airway", self.airway)
 
                         Spacer()
 
-                        ResuscitationButton("LUCAS", self.lucas)
+                        StandardButton("LUCAS", self.lucas)
                     }
                 }
                 
@@ -124,7 +124,7 @@ struct CodeDialog: View {
                 
                 Spacer()
                 
-                ResuscitationButton("R O S C", Self.FullScreenButtonsWidth, Self.ButtonHeight, self.stopResuscitation)
+                StandardButton("R O S C", Self.FullScreenButtonsWidth, Self.ButtonHeight, self.stopResuscitation)
                     .padding(.bottom, 6)
             }
         }

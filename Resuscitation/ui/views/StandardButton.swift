@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct ResuscitationButton: View {
+struct StandardButton: View {
     
     static let DefaultButtonHeight: CGFloat = 100
     
@@ -38,10 +38,10 @@ struct ResuscitationButton: View {
 }
 
 
-struct ResuscitationButton_Previews: PreviewProvider {
+struct StandardButton_Previews: PreviewProvider {
 
     static var previews: some View {
-        ResuscitationButton("Label") { }
+        StandardButton("Label") { }
     }
 
 }

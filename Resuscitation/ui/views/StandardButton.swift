@@ -19,6 +19,10 @@ struct StandardButton: View {
         self.init(title, Self.halfOfScreenWithSpacing, Self.DefaultButtonHeight, action)
     }
     
+    init(_ title: LocalizedStringKey, _ width: CGFloat = Self.halfOfScreenWithSpacing, _ action: @escaping () -> Void) {
+        self.init(title, width, Self.DefaultButtonHeight, action)
+    }
+    
     init(_ title: LocalizedStringKey, _ width: CGFloat = Self.halfOfScreenWithSpacing, _ height: CGFloat = Self.DefaultButtonHeight, _ action: @escaping () -> Void) {
         self.title = title
         self.width = width

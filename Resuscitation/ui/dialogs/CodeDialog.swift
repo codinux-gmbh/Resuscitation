@@ -3,8 +3,6 @@ import SwiftUI
 
 struct CodeDialog: View {
     
-    static private let ButtonHeight: CGFloat = 100
-    
     static private let FullScreenButtonsWidth = screenWidth
     
     static private let HalfScreenButtonsWidth = halfOfScreenWithSpacing
@@ -70,7 +68,7 @@ struct CodeDialog: View {
                 Spacer()
                 
                 VStack { // needed as a SwiftUI stack can handle only approximately 10 children
-                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, Self.ButtonHeight, { self.rhythmAnalysis() })
+                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, { self.rhythmAnalysis() })
                         .padding(.bottom, Self.SpaceBetweenButtons)
                     
                     Spacer()
@@ -124,7 +122,7 @@ struct CodeDialog: View {
                 
                 Spacer()
                 
-                StandardButton("R O S C", Self.FullScreenButtonsWidth, Self.ButtonHeight, self.stopResuscitation)
+                StandardButton("R O S C", Self.FullScreenButtonsWidth, self.stopResuscitation)
                     .padding(.bottom, 6)
             }
         }

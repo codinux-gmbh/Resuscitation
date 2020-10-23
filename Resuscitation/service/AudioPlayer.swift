@@ -2,7 +2,7 @@ import SwiftUI
 import AVFoundation
 
 
-class AudioPlayer {
+class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     
     var audioPlayer : AVAudioPlayer!
     
@@ -28,11 +28,12 @@ class AudioPlayer {
             try session.setActive(true)
             
             audioPlayer = try AVAudioPlayer(contentsOf: file)
+            audioPlayer.delegate = self
             audioPlayer.prepareToPlay()
             audioPlayer.play()
         }
         catch {
-//            display_alert(msg_title: "Error", msg_desc: error.localizedDescription, action_title: "OK")
+            NSLog("Could not play audio file \(file): \(error)")
         }
     }
     
@@ -41,6 +42,15 @@ class AudioPlayer {
         if isPlaying {
             audioPlayer?.stop()
         }
+    }
+    
+    
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        NSLog("Error occured during playback: \(error)")
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        print("Did finish playback. successfully? \(flag)") // TODO: change UI then
     }
     
 }

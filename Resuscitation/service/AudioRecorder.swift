@@ -26,6 +26,7 @@ class AudioRecorder : NSObject, AVAudioRecorderDelegate {
         do {
             try session.setCategory(AVAudioSession.Category.playAndRecord, options: .defaultToSpeaker)
             try session.setActive(true)
+            
             let settings = [
                 AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                 AVSampleRateKey: 44100,
@@ -40,7 +41,7 @@ class AudioRecorder : NSObject, AVAudioRecorderDelegate {
             audioRecorder.record()
         }
         catch {
-//            display_alert(msg_title: "Error", msg_desc: error.localizedDescription, action_title: "OK")
+            NSLog("Could not start recording: \(error)")
         }
     }
     
@@ -53,6 +54,8 @@ class AudioRecorder : NSObject, AVAudioRecorderDelegate {
     }
     
     
-    // TODO: implement AVAudioRecorderDelegate and handle errors
+    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+        NSLog("Error occured during recording: \(error)")
+    }
     
 }

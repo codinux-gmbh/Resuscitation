@@ -6,9 +6,7 @@ struct ContentView: View {
     @Inject private var presenter: Presenter
     
     
-    static private let ButtonHeight: CGFloat = 50
-    
-    static private let TopButtonsWidth = halfOfScreenWithSpacing
+    static private let ButtonHeight = halfOfScreenWithSpacing
     
     
     var body: some View {
@@ -17,7 +15,7 @@ struct ContentView: View {
                 HStack {
                     NavigationLink(destination: LazyView(LogsOverviewDialog(presenter))) {
                         Text("Logs")
-                            .frame(width: Self.halfOfScreenWithSpacing, height: Self.TopButtonsWidth)
+                            .frame(width: Self.halfOfScreenWithSpacing, height: Self.ButtonHeight)
                             .overlay(StandardBorder())
                     }
                     
@@ -25,7 +23,7 @@ struct ContentView: View {
                     
                     NavigationLink(destination: LazyView(SettingsDialog())) {
                         Text("Options")
-                            .frame(width: Self.halfOfScreenWithSpacing, height: Self.TopButtonsWidth)
+                            .frame(width: Self.halfOfScreenWithSpacing, height: Self.ButtonHeight)
                             .overlay(StandardBorder())
                     }
                     .disabled(true)

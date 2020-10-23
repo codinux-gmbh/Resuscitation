@@ -12,7 +12,7 @@ extension View {
     }
     
     static var halfOfScreenWithSpacing: CGFloat {
-        return screenWidth / 2 - screenWidth / 10
+        return screenWidth / 2 - screenWidth / 20
     }
     
 

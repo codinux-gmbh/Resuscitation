@@ -5,13 +5,15 @@ struct LogsOverviewDialog: View {
     
     private let presenter: Presenter
     
-    private let logs: [ResuscitationLogInfo]
+    @State private var logs: [ResuscitationLogInfo] = [ResuscitationLogInfo]()
     
+    @State var selectedLogs = Set<ResuscitationLogInfo>()
+
     
     init(_ presenter: Presenter) {
         self.presenter = presenter
         
-        self.logs = presenter.getResuscitationLogs()
+        self._logs = State(initialValue: presenter.getResuscitationLogs())
     }
     
 
@@ -22,14 +24,14 @@ struct LogsOverviewDialog: View {
                     NavigationLink(destination: LazyView(LogDialog(log, presenter))) {
                         HStack {
                             Text(presenter.formatDate(log.startTime))
-                            
+
                             Spacer()
-                            
+
                             Text(presenter.formatTime(log.startTime))
                         }
                     }
                 }
-                .onDelete(perform: delete)
+                .onDelete(perform: askUserToDeleteLogs)
             }
         }
         .navigationBarTitle("Logs", displayMode: .inline)
@@ -37,7 +39,7 @@ struct LogsOverviewDialog: View {
     }
     
     
-    private func delete(at offsets: IndexSet) {
+    private func askUserToDeleteLogs(at offsets: IndexSet) {
         for offset in offsets {
             let log = logs[offset]
             askUserToDeleteLog(log)
@@ -48,9 +50,15 @@ struct LogsOverviewDialog: View {
         UIAlert(
             "Really delete log '%@'?".localize(presenter.formatDate(log.startTime) + " " + presenter.formatTime(log.startTime)),
             "All data for this account will be permanently deleted locally.",
-            UIAlertAction.destructive("Delete") { presenter.deleteResuscitationLog(log) },
+            UIAlertAction.destructive("Delete") { self.deleteLog(log) },
             UIAlertAction.cancel()
         ).show()
+    }
+    
+    private func deleteLog(_ log: ResuscitationLogInfo) {
+        presenter.deleteResuscitationLog(log)
+        
+        self.logs = presenter.getResuscitationLogs()
     }
 
 }

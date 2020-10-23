@@ -3,7 +3,7 @@ import SwiftUI
 
 struct StandardButton: View {
     
-    static let DefaultButtonHeight: CGFloat = 100
+    static let DefaultButtonHeight: CGFloat = Self.screenHeight / 8 < 100 ? Self.screenHeight / 8 : 100
     
     
     private let title: LocalizedStringKey

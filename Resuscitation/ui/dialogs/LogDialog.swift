@@ -14,7 +14,9 @@ struct LogDialog: View {
     
     private let audioPlayer = AudioPlayer()
     
-    @State private var isPlaying: Bool = false
+    @State private var playbackTime: String = ""
+    
+    private let timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
     
     
     private let log: ResuscitationLog
@@ -28,6 +30,8 @@ struct LogDialog: View {
         self.log = presenter.getResuscitationLog(logInfo)
         
         self.entries = ((log.logEntries as? Set<LogEntry>) ?? Set<LogEntry>()).sorted { $0.time! <= $1.time! }
+        
+        self._playbackTime = State(initialValue: presenter.formatDuration(audioPlayer.currentTimeSeconds))
     }
     
 
@@ -71,8 +75,15 @@ struct LogDialog: View {
             Section(header: Text("Audio")) {
                 HStack {
                     Button(action: self.togglePlayback) {
-                        Image(systemName: isPlaying ? "pause.fill" : "play.fill")
+                        Image(systemName: audioPlayer.isPlaying ? "pause.fill" : "play.fill")
                     }
+                    
+                    Spacer()
+                    
+                    Text(playbackTime).onReceive(timer) { _ in
+                        playbackTime = presenter.formatDuration(audioPlayer.currentTimeSeconds)
+                    }
+                    .monospaceFont()
                 }
                 .disabled(log.audioFilename == nil)
             }
@@ -84,7 +95,7 @@ struct LogDialog: View {
     
     
     private func togglePlayback() {
-        if isPlaying {
+        if audioPlayer.isPlaying {
             pausePlayback()
         }
         else {
@@ -94,16 +105,12 @@ struct LogDialog: View {
     
     private func startPlayback() {
         if let audioFilename = log.audioFilename, let audioPath = presenter.getAudioPath(audioFilename) {
-            audioPlayer.play(audioPath) { successful in
-                self.isPlaying = successful
-            }
+            audioPlayer.play(audioPath)
         }
     }
     
     private func pausePlayback() {
         audioPlayer.pause()
-        
-        self.isPlaying = false
     }
     
     

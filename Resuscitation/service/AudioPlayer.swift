@@ -8,11 +8,15 @@ class AudioPlayer: NSObject, AVAudioPlayerDelegate {
     
     private var audioPlayer: AVAudioPlayer!
     
-    private var isPaused: Bool = false
-    
     
     var isPlaying: Bool {
         return audioPlayer?.isPlaying ?? false
+    }
+    
+    private (set) var isPaused: Bool = false
+    
+    var currentTimeSeconds: TimeInterval {
+        return audioPlayer?.currentTime ?? 0
     }
     
     

@@ -29,10 +29,7 @@ struct StandardButton: View {
     var body: some View {
         Button(title, action: self.action)
             .frame(width: width, height: height, alignment: .center)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(Color.gray, lineWidth: 1)
-            )
+            .overlay(StandardBorder())
     }
 
 }

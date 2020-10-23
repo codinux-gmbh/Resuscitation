@@ -15,22 +15,29 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 HStack {
-                    NavigationLink("Logs", destination: LazyView(LogsOverviewDialog(presenter)))
-                        .frame(width: Self.TopButtonsWidth, height: Self.ButtonHeight, alignment: .leading)
-                        .padding(.leading, 12)
+                    NavigationLink(destination: LazyView(LogsOverviewDialog(presenter))) {
+                        Text("Logs")
+                            .frame(width: Self.halfOfScreenWithSpacing, height: Self.TopButtonsWidth)
+                            .overlay(StandardBorder())
+                    }
                     
                     Spacer()
                     
-                    NavigationLink("Options", destination: LazyView(SettingsDialog()))
-                        .frame(width: Self.TopButtonsWidth, height: Self.ButtonHeight, alignment: .trailing)
-                        .padding(.trailing, 12)
-                        .disabled(true)
+                    NavigationLink(destination: LazyView(SettingsDialog())) {
+                        Text("Options")
+                            .frame(width: Self.halfOfScreenWithSpacing, height: Self.TopButtonsWidth)
+                            .overlay(StandardBorder())
+                    }
+                    .disabled(true)
                 }
                 
                 Spacer()
                 
-                NavigationLink("Start Code", destination: LazyView(CodeDialog(presenter)))
-                    .frame(width: Self.screenWidth, height: Self.ButtonHeight)
+                NavigationLink(destination: LazyView(CodeDialog(presenter))) {
+                    Text("Start Code")
+                        .frame(width: Self.screenWidth, height: Self.ButtonHeight)
+                        .overlay(StandardBorder())
+                }
                 
                 Spacer()
             }

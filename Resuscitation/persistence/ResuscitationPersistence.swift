@@ -62,6 +62,14 @@ class ResuscitationPersistence {
         return newEntry
     }
     
+    func deleteResuscitationLog(_ logId: String) {
+        let log = getResuscitationLog(logId)
+        
+        context.delete(log)
+        
+        saveChanges()
+    }
+    
     
     func getResuscitationLogs() -> [ResuscitationLogInfo] {
         var logs: [ResuscitationLog] = []

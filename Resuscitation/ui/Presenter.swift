@@ -27,6 +27,10 @@ class Presenter {
         persistence.updateLog(log)
     }
     
+    func deleteResuscitationLog(_ logInfo: ResuscitationLogInfo) {
+        return persistence.deleteResuscitationLog(logInfo.id)
+    }
+    
     
     func getResuscitationLogs() -> [ResuscitationLogInfo] {
         return persistence.getResuscitationLogs().sorted { $0.startTime >= $1.startTime }

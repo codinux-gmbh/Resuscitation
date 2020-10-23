@@ -14,6 +14,8 @@ struct LogDialog: View {
     
     private let audioPlayer = AudioPlayer()
     
+    @State private var isPlaying: Bool = false
+    
     
     private let log: ResuscitationLog
     
@@ -68,25 +70,42 @@ struct LogDialog: View {
             
             Section(header: Text("Audio")) {
                 HStack {
-                    Button(action: self.startPlaying) {
-                        Image(systemName: "play.fill")
+                    Button(action: self.togglePlayback) {
+                        Image(systemName: isPlaying ? "pause.fill" : "play.fill")
                     }
                 }
                 .disabled(log.audioFilename == nil)
             }
         }
         .onDisappear {
-            if audioPlayer.isPlaying {
+            if isPlaying {
                 audioPlayer.stop()
             }
         }
     }
     
     
-    private func startPlaying() {
-        if let audioFilename = log.audioFilename, let audioPath = presenter.getAudioPath(audioFilename) {
-            audioPlayer.play(audioPath)
+    private func togglePlayback() {
+        if isPlaying {
+            pausePlayback()
         }
+        else {
+            startPlayback()
+        }
+    }
+    
+    private func startPlayback() {
+        if let audioFilename = log.audioFilename, let audioPath = presenter.getAudioPath(audioFilename) {
+            audioPlayer.play(audioPath) { successful in
+                self.isPlaying = successful
+            }
+        }
+    }
+    
+    private func pausePlayback() {
+        audioPlayer.pause()
+        
+        self.isPlaying = false
     }
     
     

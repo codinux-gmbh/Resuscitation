@@ -2,6 +2,8 @@ import SwiftUI
 
 
 struct CodeDialog: View {
+
+    static private let SpaceBetweenButtons: CGFloat = 12
     
     static private let FullScreenButtonsWidth = screenWidth
     

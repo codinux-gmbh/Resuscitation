@@ -108,12 +108,10 @@ struct CodeDialog: View {
                 HStack {
                     Text("Recording") // TODO: change state if stop is pressed
                     
-                    Button(action: { self.toggleRecording() }) {
-                        Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
-                            .resizable()
-                            .frame(width: 35, height: 35)
-                            .accentColor(Color.red)
-                    }
+                    Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
+                        .resizable()
+                        .frame(width: 35, height: 35)
+                        .accentColor(Color.red)
                     
                     Spacer()
                     
@@ -122,6 +120,10 @@ struct CodeDialog: View {
                 }
                 .padding()
                 .padding(.vertical, 12)
+                .makeBackgroundTapable()
+                .onTapGesture {
+                    self.toggleRecording()
+                }
                 
                 Spacer()
                 

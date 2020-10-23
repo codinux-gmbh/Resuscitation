@@ -21,9 +21,9 @@ struct CodeDialog: View {
     private let startTime = Date()
     
     @State private var durationMillis: UInt64 = 0
-    
+
     @State private var durationString: String = "0:00"
-    
+
     @State private var audioRecordDurationString: String = "0:00"
     
     
@@ -107,7 +107,7 @@ struct CodeDialog: View {
                 HStack {
                     Text("Recording") // TODO: change state if stop is pressed
                     
-                    Button(action: { self.audioRecorder.stopRecording() }) {
+                    Button(action: { self.stopRecording() }) {
                         Image(systemName: "stop.fill")
                             .resizable()
                             .frame(width: 20, height: 20)
@@ -162,9 +162,15 @@ struct CodeDialog: View {
     }
     
     private func stopResuscitation() {
+        stopRecording()
+        
         presenter.resuscitationStopped(log)
         
         presentation.wrappedValue.dismiss()
+    }
+    
+    private func stopRecording() {
+        audioRecorder.stopRecording()
     }
     
     

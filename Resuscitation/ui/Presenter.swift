@@ -135,10 +135,12 @@ class Presenter {
     }
     
     func formatDuration(_ seconds: Double, _ countDecimalPlacesForMinutes: Int = 1, _ displayAsNegativeNumber: Bool = false) -> String {
-        let prefix = displayAsNegativeNumber || seconds < 0 ? "-" : ""
+        let displayedMinutes = Int(seconds / 60)
+        
+        let prefix = displayedMinutes == 0 && (displayAsNegativeNumber || seconds < 0) ? "-" : "" // for 0 minutes no negative sign gets displayed
         let displayedSeconds = abs(Int(seconds.truncatingRemainder(dividingBy: 60)))
         
-        return String(format: "\(prefix)%0\(countDecimalPlacesForMinutes)d:%02d", Int(seconds / 60), displayedSeconds)
+        return String(format: "\(prefix)%0\(countDecimalPlacesForMinutes)d:%02d", displayedMinutes, displayedSeconds)
     }
     
     

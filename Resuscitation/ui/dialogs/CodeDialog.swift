@@ -106,7 +106,7 @@ struct CodeDialog: View {
                 Spacer()
                 
                 HStack {
-                    Text("Recording") // TODO: change state if stop is pressed
+                    Text(audioRecorder.isRecording ? "Resume recording" : "Recording")
                     
                     Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
                         .resizable()

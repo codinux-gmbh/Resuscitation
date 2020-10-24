@@ -81,7 +81,7 @@ struct StandardButton: View {
                             
                             Spacer()
                             
-                            Text(presenter.formatDuration(-1 * secondsRemaining, 1)).onReceive(timerPublisher!.autoconnect()) { _ in self.updateCountDown() }
+                            Text(presenter.formatDuration(secondsRemaining, 1, true)).onReceive(timerPublisher!.autoconnect()) { _ in self.updateCountDown() }
                                 .monospaceFont()
                         }
                         .frame(height: 10)

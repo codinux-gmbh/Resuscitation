@@ -3,6 +3,11 @@ import SwiftUI
 
 struct LogDialog: View {
     
+    static private let LogEntryCalculationOptions = [ "Since beginning", "Since last same action", "Comparison to optimal time", "Off" ]
+    
+    static private let EntryTypesWithTimers = [ LogEntryType.rhythmAnalysis.rawValue, LogEntryType.shock.rawValue, LogEntryType.adrenalin.rawValue ]
+    
+    
     static private let TimeFormat = DateFormatter()
     
     private static let initializer: Void = {
@@ -11,6 +16,12 @@ struct LogDialog: View {
     
     
     private let presenter: Presenter
+    
+    private let codeSettings: CodeSettings
+    
+    
+    @State private var selectedLogEntryCalculationOption = Self.LogEntryCalculationOptions.count - 1
+    
     
     private let audioPlayer = AudioPlayer()
     
@@ -28,6 +39,7 @@ struct LogDialog: View {
     
     init(_ logInfo: ResuscitationLogInfo, _ presenter: Presenter) {
         self.presenter = presenter
+        self.codeSettings = presenter.getCodeSettings()
         
         self.log = presenter.getResuscitationLog(logInfo)
         
@@ -48,13 +60,31 @@ struct LogDialog: View {
             }
             
             Section {
+                Picker("", selection: $selectedLogEntryCalculationOption) {
+                    ForEach(0 ..< Self.LogEntryCalculationOptions.count) { index in
+                        Text(LocalizedStringKey(Self.LogEntryCalculationOptions[index]))
+                            .tag(index)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(-12)
+            }
+            
+            Section {
                 List(entries) { entry in
                     HStack {
                         Text(presenter.translateLogEntryType((entry as LogEntry).type))
                         
                         Spacer()
                         
+                        if selectedLogEntryCalculationOption != Self.LogEntryCalculationOptions.count - 1 {
+                            Text(calculateAdditionalLogEntryInfo(entry))
+                                .monospaceFont()
+                                .padding(.trailing, 18)
+                        }
+                        
                         Text(presenter.formatTimeWithSeconds((entry as LogEntry).time))
+                            .monospaceFont()
                     }
                 }
             }
@@ -110,6 +140,77 @@ struct LogDialog: View {
         .onDisappear {
             audioPlayer.stop()
         }
+    }
+    
+    
+    private func calculateAdditionalLogEntryInfo(_ entry: LogEntry) -> String {
+        let selectionLogEntryOption = Self.LogEntryCalculationOptions[selectedLogEntryCalculationOption]
+        
+        switch selectionLogEntryOption {
+        case Self.LogEntryCalculationOptions[0]:
+            return calculateTimeSinceBeginning(entry)
+        case Self.LogEntryCalculationOptions[1]:
+            return calculateTimeSinceLastSameAction(entry)
+        case Self.LogEntryCalculationOptions[2]:
+            return compareWithOptimalTime(entry)
+        default:
+            return ""
+        }
+    }
+    
+    private func calculateTimeSinceBeginning(_ entry: LogEntry) -> String {
+        if let logTime = entry.time, let startTime = log.startTime {
+            let timeSinceBeginning = logTime.timeIntervalSince(startTime)
+            
+            return presenter.formatDuration(timeSinceBeginning)
+        }
+        
+        return ""
+    }
+    
+    private func calculateTimeSinceLastSameAction(_ entry: LogEntry) -> String {
+        if let timeSinceLastSameAction = getTimeSinceLastSameAction(entry) {
+            return presenter.formatDuration(timeSinceLastSameAction)
+        }
+        
+        return ""
+    }
+    
+    private func compareWithOptimalTime(_ entry: LogEntry) -> String {
+        if Self.EntryTypesWithTimers.contains(Int(entry.type)) {
+            if let timeSinceLastSameAction = getTimeSinceLastSameAction(entry) {
+                if let optimalTime = getOptimalTime(entry) {
+                    let diff = timeSinceLastSameAction - optimalTime
+                    
+                    return presenter.formatDuration(diff)
+                }
+            }
+        }
+        
+        return ""
+    }
+    
+    private func getOptimalTime(_ entry: LogEntry) -> TimeInterval? {
+        switch Int(entry.type) {
+        case LogEntryType.rhythmAnalysis.rawValue:
+            return TimeInterval(codeSettings.rhythmAnalysisTimerInSeconds)
+        case LogEntryType.shock.rawValue:
+            return TimeInterval(codeSettings.shockTimerInSeconds)
+        case LogEntryType.adrenalin.rawValue:
+            return TimeInterval(codeSettings.adrenalinTimerInSeconds)
+        default:
+            return nil
+        }
+    }
+    
+    private func getTimeSinceLastSameAction(_ entry: LogEntry) -> TimeInterval? {
+        let sameActionsBefore = entries.filter { $0.type == entry.type && $0.time! < entry.time! }
+        
+        if let lastOfSameAction = sameActionsBefore.last { // entries are already sorted chronologically -> simply take the 'oldest' entry of same type
+            return entry.time!.timeIntervalSince(lastOfSameAction.time!)
+        }
+        
+        return nil
     }
     
     

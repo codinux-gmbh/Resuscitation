@@ -28,6 +28,11 @@
 
 /*      LogDialog       */
 
+"Since beginning" = "Beginning";
+"Since last same action" = "Same action";
+"Comparison to optimal time" = "Optimal time";
+"Off" = "Off";
+
 "Export" = "Export";
 "Audio" = "Audio";
 "Print (PDF)" = "Print (PDF)";

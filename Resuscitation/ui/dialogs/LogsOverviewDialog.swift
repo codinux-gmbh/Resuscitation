@@ -24,10 +24,12 @@ struct LogsOverviewDialog: View {
                     NavigationLink(destination: LazyView(LogDialog(log, presenter))) {
                         HStack {
                             Text(presenter.formatDate(log.startTime))
+                                .monospaceFont()
 
                             Spacer()
 
                             Text(presenter.formatTime(log.startTime))
+                                .monospaceFont()
                         }
                     }
                 }

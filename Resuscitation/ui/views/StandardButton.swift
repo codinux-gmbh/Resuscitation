@@ -21,14 +21,6 @@ struct StandardButton: View {
     
     @State private var lastButtonClick: Date? = nil
     
-    private let timerPublisher: Timer.TimerPublisher?
-    
-    @State private var secondsRemaining: Int = 0
-    
-    @State private var countDown: CGFloat = 1
-    
-    @State private var didCountDown: Bool = false
-    
     private let action: () -> Void
     
     
@@ -56,13 +48,6 @@ struct StandardButton: View {
         self.height = height
         self.showCountDownOfLengthInSecondsOnClick = showCountDownOfLengthInSecondsOnClick
         self.action = action
-        
-        if showCountDownOfLengthInSecondsOnClick != nil {
-            timerPublisher = Timer.publish(every: 0.25, on: .main, in: .common)
-        }
-        else {
-            timerPublisher = nil
-        }
     }
 
     var body: some View {
@@ -75,15 +60,8 @@ struct StandardButton: View {
                     
                     Spacer()
                     
-                    if lastButtonClick != nil {
-                        HStack {
-                            ProgressBar($countDown, true)
-                            
-                            Spacer()
-                            
-                            Text(presenter.formatDuration(secondsRemaining, 1, true)).onReceive(timerPublisher!.autoconnect()) { _ in self.updateCountDown() }
-                                .monospaceFont()
-                        }
+                    lastButtonClick.map { lastButtonClick in
+                        CountDownView(presenter, lastButtonClick, showCountDownOfLengthInSecondsOnClick!)
                         .frame(height: 10)
                         .padding(.horizontal, 6)
                         .padding(.bottom, 4)
@@ -97,29 +75,11 @@ struct StandardButton: View {
     }
     
     
-    private func updateCountDown() {
-        if let showCountDownOfLengthInSecondsOnClick = showCountDownOfLengthInSecondsOnClick, let lastButtonClick = lastButtonClick {
-            let secondsSinceStart = Date().timeIntervalSince(lastButtonClick)
-            
-            let secondsRemaining = Int(showCountDownOfLengthInSecondsOnClick) - Int(secondsSinceStart)
-            
-            if secondsRemaining >= 0 {
-                self.secondsRemaining = secondsRemaining
-                self.countDown = CGFloat(secondsRemaining) / CGFloat(showCountDownOfLengthInSecondsOnClick)
-                self.didCountDown = false
-            }
-            else {
-                self.didCountDown = true
-            }
-        }
-    }
-    
     private func buttonClicked() {
         self.action()
         
         if showCountDownOfLengthInSecondsOnClick != nil {
             lastButtonClick = Date()
-            updateCountDown()
         }
     }
 

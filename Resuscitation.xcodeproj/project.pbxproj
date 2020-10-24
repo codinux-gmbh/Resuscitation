@@ -11,6 +11,7 @@
 		36671307254306D900BD2301 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36671306254306D900BD2301 /* AudioPlayer.swift */; };
 		3667131525432A1400BD2301 /* StandardBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667131425432A1400BD2301 /* StandardBorder.swift */; };
 		3667132C2543440700BD2301 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667132B2543440700BD2301 /* ProgressBar.swift */; };
+		366713342543B77C00BD2301 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366713332543B77B00BD2301 /* CountDownView.swift */; };
 		36B70EB3253265D100734588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB2253265D100734588 /* AppDelegate.swift */; };
 		36B70EB5253265D100734588 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB4253265D100734588 /* SceneDelegate.swift */; };
 		36B70EB7253265D100734588 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB6253265D100734588 /* ContentView.swift */; };
@@ -40,7 +41,6 @@
 		36B70F7C2532A7AC00734588 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F7B2532A7AC00734588 /* ActionSheet.swift */; };
 		36B70F872532A7E700734588 /* UIAlertBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F862532A7E700734588 /* UIAlertBase.swift */; };
 		36B70F8F2532A81700734588 /* UIAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F8E2532A81700734588 /* UIAlert.swift */; };
-		36B70F9F2532AE9900734588 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70F9E2532AE9900734588 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +65,7 @@
 		36671306254306D900BD2301 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		3667131425432A1400BD2301 /* StandardBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardBorder.swift; sourceTree = "<group>"; };
 		3667132B2543440700BD2301 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		366713332543B77B00BD2301 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
 		36B70EAF253265D100734588 /* Resuscitation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resuscitation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B70EB2253265D100734588 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36B70EB4253265D100734588 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		36B70F7B2532A7AC00734588 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
 		36B70F862532A7E700734588 /* UIAlertBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertBase.swift; sourceTree = "<group>"; };
 		36B70F8E2532A81700734588 /* UIAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlert.swift; sourceTree = "<group>"; };
-		36B70F9E2532AE9900734588 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,7 +214,6 @@
 				36B70F21253272C800734588 /* ViewExtensions.swift */,
 				36B70F26253275CC00734588 /* Presenter.swift */,
 				36B70F6A25329CE000734588 /* Styles.swift */,
-				36B70F9E2532AE9900734588 /* Message.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -235,8 +234,9 @@
 			children = (
 				36B70F7A2532A79D00734588 /* UIKit */,
 				36B70F5A2532927500734588 /* LazyView.swift */,
-				36B70F302532771200734588 /* StandardButton.swift */,
 				3667131425432A1400BD2301 /* StandardBorder.swift */,
+				36B70F302532771200734588 /* StandardButton.swift */,
+				366713332543B77B00BD2301 /* CountDownView.swift */,
 				3667132B2543440700BD2301 /* ProgressBar.swift */,
 			);
 			path = views;
@@ -411,7 +411,6 @@
 				36B70EFB253268BB00734588 /* SettingsDialog.swift in Sources */,
 				36B70F752532A71C00734588 /* UIKitExtensions.swift in Sources */,
 				36B70F8F2532A81700734588 /* UIAlert.swift in Sources */,
-				36B70F9F2532AE9900734588 /* Message.swift in Sources */,
 				36B70F5625328C7600734588 /* CoreDataExtensions.swift in Sources */,
 				36B70F22253272C800734588 /* ViewExtensions.swift in Sources */,
 				36B70EEB253267F200734588 /* CodeDialog.swift in Sources */,
@@ -426,6 +425,7 @@
 				36B70EBA253265D100734588 /* Resuscitation.xcdatamodeld in Sources */,
 				36B70EF6253268A200734588 /* LogsOverviewDialog.swift in Sources */,
 				36B70F4825328A9500734588 /* LogEntryType.swift in Sources */,
+				366713342543B77C00BD2301 /* CountDownView.swift in Sources */,
 				36B70F7025329F4300734588 /* SwiftExtensions.swift in Sources */,
 				36B70F632532965900734588 /* LogDialog.swift in Sources */,
 				36B70F5B2532927500734588 /* LazyView.swift in Sources */,

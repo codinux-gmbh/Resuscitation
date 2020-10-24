@@ -29,6 +29,40 @@ class ResuscitationPersistence {
     }()
     
     
+    func getCodeSettings() -> CodeSettings {
+        var codeSettings: [CodeSettings] = []
+        
+        do {
+            let request: NSFetchRequest<CodeSettings> = CodeSettings.fetchRequest()
+            request.returnsObjectsAsFaults = false
+            
+            try codeSettings = context.fetch(request)
+        } catch {
+            NSLog("Could not request CodeSettings: \(error)")
+        }
+        
+        if let persistedSettings = codeSettings.first {
+            return persistedSettings
+        }
+        
+        
+        return createAndPersistNewCodeSettings()
+    }
+    
+    private func createAndPersistNewCodeSettings() -> CodeSettings {
+        let newSettings = CodeSettings(context: context)
+        
+        context.insert(newSettings)
+        
+        saveChanges()
+        
+        return newSettings
+    }
+    
+    func saveCodeSettings(_ codeSettings: CodeSettings) {
+        saveChanges()
+    }
+    
     
     func createNewResuscitationLog(_ startTime: Date, _ audioFilename: String? = nil) -> ResuscitationLog {
         let newLog = ResuscitationLog(context: context)

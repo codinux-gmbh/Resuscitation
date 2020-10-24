@@ -15,6 +15,8 @@ struct CodeDialog: View {
     
     private let presenter: Presenter
     
+    private let codeSettings: CodeSettings
+    
     
     private let log: ResuscitationLog
     
@@ -37,13 +39,17 @@ struct CodeDialog: View {
     init(_ presenter: Presenter) {
         self.presenter = presenter
         
+        self.codeSettings = presenter.getCodeSettings()
+        
         self.audioFilename = "code_record_\(presenter.formatDateTime(Date())).mp4"
         
         self.log = presenter.createNewResuscitationLog(startTime, audioFilename)
         
         presenter.preventScreenLock()
         
-        startRecording()
+        if codeSettings.recordAudio {
+            startRecording()
+        }
     }
 
     
@@ -71,17 +77,17 @@ struct CodeDialog: View {
                 Spacer()
                 
                 VStack { // needed as a SwiftUI stack can handle only approximately 10 children
-                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, 120, self.rhythmAnalysis)
+                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, codeSettings.rhythmAnalysisTimerInSeconds, self.rhythmAnalysis)
                         .padding(.bottom, Self.SpaceBetweenButtons)
                     
                     Spacer()
                     
                     HStack {
-                        StandardButton("Shock", 180, self.shock)
+                        StandardButton("Shock", codeSettings.shockTimerInSeconds, self.shock)
                         
                         Spacer()
                         
-                        StandardButton("Adrenalin", 120, self.adrenalin)
+                        StandardButton("Adrenalin", codeSettings.adrenalinTimerInSeconds, self.adrenalin)
                     }
                     .padding(.bottom, Self.SpaceBetweenButtons)
                     

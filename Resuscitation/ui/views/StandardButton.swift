@@ -17,7 +17,7 @@ struct StandardButton: View {
     
     private let height: CGFloat
     
-    private let showCountDownOfLengthInSecondsOnClick: Int?
+    private let showCountDownOfLengthInSecondsOnClick: Int32?
     
     @State private var lastButtonClick: Date? = nil
     
@@ -40,17 +40,17 @@ struct StandardButton: View {
         self.init(title, width, Self.DefaultButtonHeight, nil, action)
     }
     
-    init(_ title: LocalizedStringKey, _ showCountDownOfLengthInSecondsOnClick: Int? = nil, _ action: @escaping () -> Void) {
+    init(_ title: LocalizedStringKey, _ showCountDownOfLengthInSecondsOnClick: Int32? = nil, _ action: @escaping () -> Void) {
         self.init(title, Self.DefaultButtonWidth, showCountDownOfLengthInSecondsOnClick, action)
     }
     
     init(_ title: LocalizedStringKey, _ width: CGFloat = Self.DefaultButtonWidth,
-         _ showCountDownOfLengthInSecondsOnClick: Int? = nil, _ action: @escaping () -> Void) {
+         _ showCountDownOfLengthInSecondsOnClick: Int32? = nil, _ action: @escaping () -> Void) {
         self.init(title, width, Self.DefaultButtonHeight, showCountDownOfLengthInSecondsOnClick, action)
     }
     
     init(_ title: LocalizedStringKey, _ width: CGFloat = Self.DefaultButtonWidth, _ height: CGFloat = Self.DefaultButtonHeight,
-         _ showCountDownOfLengthInSecondsOnClick: Int? = nil, _ action: @escaping () -> Void) {
+         _ showCountDownOfLengthInSecondsOnClick: Int32? = nil, _ action: @escaping () -> Void) {
         self.title = title
         self.width = width
         self.height = height
@@ -101,7 +101,7 @@ struct StandardButton: View {
         if let showCountDownOfLengthInSecondsOnClick = showCountDownOfLengthInSecondsOnClick, let lastButtonClick = lastButtonClick {
             let secondsSinceStart = Date().timeIntervalSince(lastButtonClick)
             
-            let secondsRemaining = showCountDownOfLengthInSecondsOnClick - Int(secondsSinceStart)
+            let secondsRemaining = Int(showCountDownOfLengthInSecondsOnClick) - Int(secondsSinceStart)
             
             if secondsRemaining >= 0 {
                 self.secondsRemaining = secondsRemaining

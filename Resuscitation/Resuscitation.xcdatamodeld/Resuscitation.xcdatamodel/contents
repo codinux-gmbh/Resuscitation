@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CodeSettings" representedClassName="CodeSettings" syncable="YES" codeGenerationType="class">
+        <attribute name="adrenalinTimerInSeconds" attributeType="Integer 32" defaultValueString="180" usesScalarValueType="YES"/>
+        <attribute name="recordAudio" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="rhythmAnalysisTimerInSeconds" attributeType="Integer 32" defaultValueString="120" usesScalarValueType="YES"/>
+        <attribute name="shockTimerInSeconds" attributeType="Integer 32" defaultValueString="120" usesScalarValueType="YES"/>
+    </entity>
     <entity name="LogEntry" representedClassName="LogEntry" syncable="YES" codeGenerationType="class">
         <attribute name="time" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="type" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -13,5 +19,6 @@
     <elements>
         <element name="LogEntry" positionX="-54" positionY="9" width="128" height="73"/>
         <element name="ResuscitationLog" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="CodeSettings" positionX="-54" positionY="18" width="128" height="103"/>
     </elements>
 </model>

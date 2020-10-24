@@ -13,6 +13,15 @@ class Presenter {
     }
     
     
+    func getCodeSettings() -> CodeSettings {
+        return persistence.getCodeSettings()
+    }
+    
+    func saveCodeSettings(_ codeSettings: CodeSettings) {
+        persistence.saveCodeSettings(codeSettings)
+    }
+    
+    
     func createNewResuscitationLog(_ startTime: Date, _ audioFilename: String? = nil) -> ResuscitationLog {
         return persistence.createNewResuscitationLog(startTime, audioFilename)
     }

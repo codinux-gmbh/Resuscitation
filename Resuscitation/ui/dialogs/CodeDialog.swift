@@ -106,12 +106,12 @@ struct CodeDialog: View {
                 Spacer()
                 
                 HStack {
-                    Text(audioRecorder.isRecording ? "Resume recording" : "Recording")
-                    
                     Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
                         .resizable()
                         .frame(width: 35, height: 35)
                         .foregroundColor(.red)
+                    
+                    Text(audioRecorder.isRecording ? "Recording" : "Resume recording")
                     
                     Spacer()
                     

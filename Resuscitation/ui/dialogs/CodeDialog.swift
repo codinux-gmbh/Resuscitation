@@ -45,6 +45,9 @@ struct CodeDialog: View {
         
         self.log = presenter.createNewResuscitationLog(startTime, audioFilename)
         
+        _durationString = State(initialValue: presenter.formatDuration(startTime, 2))
+        _audioRecordDurationString = State(initialValue: presenter.formatDuration(audioRecorder.duration))
+        
         presenter.preventScreenLock()
         
         if codeSettings.recordAudio {
@@ -62,10 +65,10 @@ struct CodeDialog: View {
                     Spacer()
                     
                     Text(durationString).onReceive(timer) { _ in
-                        durationString = presenter.formatDuration(startTime)
+                        durationString = presenter.formatDuration(startTime, 2)
                         
                         if audioRecorder.isRecording {
-                            self.audioRecordDurationString = presenter.formatDuration(audioRecorder.duration)
+                            audioRecordDurationString = presenter.formatDuration(audioRecorder.duration)
                         }
                     }
                     .monospaceFont()

@@ -124,17 +124,17 @@ class Presenter {
         return Styles.DateTimeFormatter.string(from: date!)
     }
     
-    func formatDuration(_ startTime: Date) -> String {
+    func formatDuration(_ startTime: Date, _ countDecimalPlacesForMinutes: Int = 1) -> String {
         let secondsSinceStart = Date().timeIntervalSince(startTime)
         
-        return formatDuration(secondsSinceStart)
+        return formatDuration(secondsSinceStart, countDecimalPlacesForMinutes)
     }
     
-    func formatDuration(_ seconds: Int, _ countDecimalPlacesForMinutes: Int = 2, _ displayAsNegativeNumber: Bool = false) -> String {
+    func formatDuration(_ seconds: Int, _ countDecimalPlacesForMinutes: Int = 1, _ displayAsNegativeNumber: Bool = false) -> String {
         return formatDuration(Double(seconds), countDecimalPlacesForMinutes, displayAsNegativeNumber)
     }
     
-    func formatDuration(_ seconds: Double, _ countDecimalPlacesForMinutes: Int = 2, _ displayAsNegativeNumber: Bool = false) -> String {
+    func formatDuration(_ seconds: Double, _ countDecimalPlacesForMinutes: Int = 1, _ displayAsNegativeNumber: Bool = false) -> String {
         let prefix = displayAsNegativeNumber ? "-" : ""
         let displayedSeconds = abs(Int(seconds.truncatingRemainder(dividingBy: 60)))
         

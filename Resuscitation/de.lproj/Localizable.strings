@@ -1,4 +1,7 @@
 
+"Save" = "Speichern";
+
+
 /*      ContentView     */
 
 "Start Code" = "Wiederbelebung starten";
@@ -29,3 +32,12 @@
 "Audio" = "Audio";
 "Print (PDF)" = "Drucken (PDF)";
 "CSV" = "CSV";
+
+
+/*      SettingsDialog      */
+
+"Rhythm Analysis Timer" = "Pulskontrolle(?) Zeitabstände";
+"Shock Timer" = "Defibrillation Zeitabstände";
+"Adrenalin Timer" = "Adrenalin Zeitabstände";
+"Record audio" = "Ton aufnehmen";
+

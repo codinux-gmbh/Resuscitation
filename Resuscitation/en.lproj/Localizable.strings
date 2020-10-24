@@ -1,4 +1,7 @@
 
+"Save" = "Save";
+
+
 /*      ContentView     */
 
 "Start Code" = "Start Code";
@@ -29,3 +32,11 @@
 "Audio" = "Audio";
 "Print (PDF)" = "Print (PDF)";
 "CSV" = "CSV";
+
+
+/*      SettingsDialog      */
+
+"Rhythm Analysis Timer" = "Rhythm Analysis Timer";
+"Shock Timer" = "Shock Timer";
+"Adrenalin Timer" = "Adrenalin Timer";
+"Record audio" = "Audio Log";

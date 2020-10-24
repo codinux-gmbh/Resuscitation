@@ -21,12 +21,11 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: LazyView(SettingsDialog())) {
-                        Text("Options")
+                    NavigationLink(destination: LazyView(SettingsDialog(presenter))) {
+                        Text("Settings")
                             .frame(width: Self.halfOfScreenWithSpacing, height: Self.ButtonHeight)
                             .overlay(StandardBorder())
                     }
-                    .disabled(true)
                 }
                 
                 Spacer()

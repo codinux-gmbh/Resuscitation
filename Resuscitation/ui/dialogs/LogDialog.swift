@@ -8,13 +8,6 @@ struct LogDialog: View {
     static private let EntryTypesWithTimers = [ LogEntryType.rhythmAnalysis.rawValue, LogEntryType.shock.rawValue, LogEntryType.adrenalin.rawValue ]
     
     
-    static private let TimeFormat = DateFormatter()
-    
-    private static let initializer: Void = {
-        TimeFormat.dateFormat = "HH:mm"
-    }()
-    
-    
     private let presenter: Presenter
     
     private let codeSettings: CodeSettings

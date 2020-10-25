@@ -60,14 +60,11 @@ struct LogDialog: View {
             }
             
             Section {
-                Picker("", selection: $selectedLogEntryCalculationOption) {
+                Picker("Additional information", selection: $selectedLogEntryCalculationOption) {
                     ForEach(0 ..< Self.LogEntryCalculationOptions.count) { index in
                         Text(LocalizedStringKey(Self.LogEntryCalculationOptions[index]))
-                            .tag(index)
                     }
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding(-12)
             }
             
             Section {

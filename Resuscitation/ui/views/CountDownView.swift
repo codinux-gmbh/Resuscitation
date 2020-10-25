@@ -5,6 +5,8 @@ struct CountDownView: View {
     
     private var presenter: Presenter
     
+    private var codeSettings: CodeSettings
+    
     
     private let title: String
     
@@ -30,6 +32,8 @@ struct CountDownView: View {
         self.title = title
         self.lastButtonClick = lastButtonClick
         self.showCountDownOfLengthInSecondsOnClick = showCountDownOfLengthInSecondsOnClick
+        
+        self.codeSettings = presenter.codeSettings
     }
     
 
@@ -55,20 +59,30 @@ struct CountDownView: View {
             self.countDown = CGFloat(secondsRemaining) / CGFloat(showCountDownOfLengthInSecondsOnClick)
             self.didCountDown = false
             
-            if secondsRemaining == 10 && didInformUserWillSoonCountToZero == false {
+            if secondsRemaining == codeSettings.informUserCountSecondsBeforeTimerCountDown && didInformUserWillSoonCountToZero == false {
                 didInformUserWillSoonCountToZero = true
                 
-                DispatchQueue.global(qos: .background).async {
-                    textToSpeech.read(title)
-                }
+                informUserTimerWillCountDownSoon()
             }
-            else if secondsRemaining < 9 {
+            else if secondsRemaining < codeSettings.informUserCountSecondsBeforeTimerCountDown {
                 didInformUserWillSoonCountToZero = false // needed as didInformUserWillSoonCountToZero currently gets only set when counted down -> if not counted down e.g. due to click it won't get reset -> cannot play again
             }
         }
         else {
             self.didCountDown = true
             self.didInformUserWillSoonCountToZero = false
+        }
+    }
+    
+    private func informUserTimerWillCountDownSoon() {
+        if codeSettings.informUserOfTimerCountDownWithSound {
+            DispatchQueue.global(qos: .background).async {
+                textToSpeech.read(title)
+            }
+        }
+        
+        if codeSettings.informUserOfTimerCountDownOptically {
+            // TODO: implement button blink
         }
     }
 

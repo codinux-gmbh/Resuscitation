@@ -13,6 +13,7 @@
 		3667132C2543440700BD2301 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667132B2543440700BD2301 /* ProgressBar.swift */; };
 		366713342543B77C00BD2301 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366713332543B77B00BD2301 /* CountDownView.swift */; };
 		3667133F2543CA0300BD2301 /* TextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667133E2543CA0300BD2301 /* TextToSpeech.swift */; };
+		3667134C2545BF8900BD2301 /* AdditionalLogTimeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667134B2545BF8900BD2301 /* AdditionalLogTimeInformation.swift */; };
 		36B70EB3253265D100734588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB2253265D100734588 /* AppDelegate.swift */; };
 		36B70EB5253265D100734588 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB4253265D100734588 /* SceneDelegate.swift */; };
 		36B70EB7253265D100734588 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB6253265D100734588 /* ContentView.swift */; };
@@ -68,6 +69,7 @@
 		3667132B2543440700BD2301 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		366713332543B77B00BD2301 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
 		3667133E2543CA0300BD2301 /* TextToSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeech.swift; sourceTree = "<group>"; };
+		3667134B2545BF8900BD2301 /* AdditionalLogTimeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalLogTimeInformation.swift; sourceTree = "<group>"; };
 		36B70EAF253265D100734588 /* Resuscitation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resuscitation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B70EB2253265D100734588 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36B70EB4253265D100734588 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 			children = (
 				36B70F4725328A9500734588 /* LogEntryType.swift */,
 				36B70F4D25328BB200734588 /* ResuscitationLogInfo.swift */,
+				3667134B2545BF8900BD2301 /* AdditionalLogTimeInformation.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				3667132C2543440700BD2301 /* ProgressBar.swift in Sources */,
 				36B70F4E25328BB200734588 /* ResuscitationLogInfo.swift in Sources */,
 				36B70F2C2532764300734588 /* DependencyInjector.swift in Sources */,
+				3667134C2545BF8900BD2301 /* AdditionalLogTimeInformation.swift in Sources */,
 				36B70EB7253265D100734588 /* ContentView.swift in Sources */,
 				36B70F6B25329CE000734588 /* Styles.swift in Sources */,
 				36B70F872532A7E700734588 /* UIAlertBase.swift in Sources */,

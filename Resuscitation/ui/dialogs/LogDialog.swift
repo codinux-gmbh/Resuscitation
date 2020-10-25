@@ -3,8 +3,6 @@ import SwiftUI
 
 struct LogDialog: View {
     
-    static private let LogEntryCalculationOptions = [ "Time since beginning", "Time since last same action", "Comparison to optimal time", "Off" ]
-    
     static private let EntryTypesWithTimers = [ LogEntryType.rhythmAnalysis.rawValue, LogEntryType.shock.rawValue, LogEntryType.adrenalin.rawValue ]
     
     
@@ -13,7 +11,7 @@ struct LogDialog: View {
     private let codeSettings: CodeSettings
     
     
-    @State private var selectedLogEntryCalculationOption = Self.LogEntryCalculationOptions.count - 1
+    @State private var selectedAdditionalLogTimeInformation: AdditionalLogTimeInformation = .Off
     
     
     private let audioPlayer = AudioPlayer()
@@ -53,9 +51,9 @@ struct LogDialog: View {
             }
             
             Section {
-                Picker("Additional information", selection: $selectedLogEntryCalculationOption) {
-                    ForEach(0 ..< Self.LogEntryCalculationOptions.count) { index in
-                        Text(LocalizedStringKey(Self.LogEntryCalculationOptions[index]))
+                Picker("Additional information", selection: $selectedAdditionalLogTimeInformation) {
+                    ForEach(AdditionalLogTimeInformation.allCases) { additionalInformation in
+                        Text(LocalizedStringKey(getLocalizationKey(additionalInformation)))
                     }
                 }
             }
@@ -67,7 +65,7 @@ struct LogDialog: View {
                         
                         Spacer()
                         
-                        if selectedLogEntryCalculationOption != Self.LogEntryCalculationOptions.count - 1 {
+                        if selectedAdditionalLogTimeInformation != .Off {
                             Text(calculateAdditionalLogEntryInfo(entry))
                                 .monospaceFont()
                                 .padding(.trailing, 18)
@@ -133,15 +131,27 @@ struct LogDialog: View {
     }
     
     
+    private func getLocalizationKey(_ additionalInformation: AdditionalLogTimeInformation) -> String {
+        switch additionalInformation {
+        case .TimeSinceStart:
+            return "Time since start"
+        case .TimeSinceLastSameAction:
+            return "Time since last same action"
+        case .ComparisonToOptimalTime:
+            return "Comparison to optimal time"
+        case .Off:
+            return "Off"
+        }
+    }
+    
     private func calculateAdditionalLogEntryInfo(_ entry: LogEntry) -> String {
-        let selectionLogEntryOption = Self.LogEntryCalculationOptions[selectedLogEntryCalculationOption]
         
-        switch selectionLogEntryOption {
-        case Self.LogEntryCalculationOptions[0]:
+        switch selectedAdditionalLogTimeInformation {
+        case .TimeSinceStart:
             return calculateTimeSinceBeginning(entry)
-        case Self.LogEntryCalculationOptions[1]:
+        case .TimeSinceLastSameAction:
             return calculateTimeSinceLastSameAction(entry)
-        case Self.LogEntryCalculationOptions[2]:
+        case .ComparisonToOptimalTime:
             return compareWithOptimalTime(entry)
         default:
             return ""

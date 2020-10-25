@@ -39,7 +39,7 @@ struct LogDialog: View {
     
     init(_ logInfo: ResuscitationLogInfo, _ presenter: Presenter) {
         self.presenter = presenter
-        self.codeSettings = presenter.getCodeSettings()
+        self.codeSettings = presenter.codeSettings
         
         self.log = presenter.getResuscitationLog(logInfo)
         

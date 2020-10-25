@@ -5,17 +5,17 @@ class Presenter {
     
     private let persistence: ResuscitationPersistence
     
+    private (set) var codeSettings: CodeSettings
+    
     
     init(_ persistence: ResuscitationPersistence) {
         self.persistence = persistence
         
         Styles.initialize()
+        
+        self.codeSettings = persistence.getCodeSettings()
     }
     
-    
-    func getCodeSettings() -> CodeSettings {
-        return persistence.getCodeSettings()
-    }
     
     func saveCodeSettings(_ codeSettings: CodeSettings) {
         persistence.saveCodeSettings(codeSettings)

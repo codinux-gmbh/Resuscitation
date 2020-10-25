@@ -29,7 +29,7 @@ struct SettingsDialog: View {
     init(_ presenter: Presenter) {
         self.presenter = presenter
         
-        codeSettings = presenter.getCodeSettings()
+        codeSettings = presenter.codeSettings
         
         _rhythmAnalysisTimer = State(initialValue: formatSecondsAsDate(codeSettings.rhythmAnalysisTimerInSeconds))
         _shockTimer = State(initialValue: formatSecondsAsDate(codeSettings.shockTimerInSeconds))

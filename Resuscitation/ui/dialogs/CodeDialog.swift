@@ -39,7 +39,7 @@ struct CodeDialog: View {
     init(_ presenter: Presenter) {
         self.presenter = presenter
         
-        self.codeSettings = presenter.getCodeSettings()
+        self.codeSettings = presenter.codeSettings
         
         self.audioFilename = "code_record_\(presenter.formatDateTime(Date())).mp4"
         

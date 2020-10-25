@@ -29,8 +29,8 @@
 /*      LogDialog       */
 
 "Additional information" = "Weitere Information";
-"Since beginning" = "Beginn";
-"Since last same action" = "Gleiche Aktion";
+"Time since beginning" = "Zeit seit Start";
+"Time since last same action" = "Seit gleicher Aktion";
 "Comparison to optimal time" = "Optimale Zeit";
 "Off" = "Aus";
 

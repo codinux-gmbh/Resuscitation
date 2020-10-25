@@ -3,7 +3,7 @@ import SwiftUI
 
 struct LogDialog: View {
     
-    static private let LogEntryCalculationOptions = [ "Since beginning", "Since last same action", "Comparison to optimal time", "Off" ]
+    static private let LogEntryCalculationOptions = [ "Time since beginning", "Time since last same action", "Comparison to optimal time", "Off" ]
     
     static private let EntryTypesWithTimers = [ LogEntryType.rhythmAnalysis.rawValue, LogEntryType.shock.rawValue, LogEntryType.adrenalin.rawValue ]
     

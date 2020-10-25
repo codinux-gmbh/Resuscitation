@@ -77,7 +77,8 @@ struct CountDownView: View {
     private func informUserTimerWillCountDownSoon() {
         if codeSettings.informUserOfTimerCountDownWithSound {
             DispatchQueue.global(qos: .background).async {
-                textToSpeech.read(title)
+                let translated = String(format: NSLocalizedString("In %@ seconds %@", comment: ""), String(codeSettings.informUserCountSecondsBeforeTimerCountDown), title)
+                textToSpeech.read(translated)
             }
         }
         

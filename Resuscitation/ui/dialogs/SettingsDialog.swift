@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 
 struct SettingsDialog: View {
@@ -54,6 +55,13 @@ struct SettingsDialog: View {
             Section {
                 HStack {
                     TextField("", text: $informUserCountSecondsBeforeTimerCountDown)
+                        .keyboardType(.numberPad)
+                        .onReceive(Just(informUserCountSecondsBeforeTimerCountDown)) { newValue in
+                            let filtered = newValue.filter { "0123456789".contains($0) }
+                            if filtered != newValue {
+                                self.informUserCountSecondsBeforeTimerCountDown = filtered
+                            }
+                        }
                         .frame(width: 30)
                     
                     Text("seconds before timer count down to inform user via")

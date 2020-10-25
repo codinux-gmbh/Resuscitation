@@ -15,6 +15,17 @@ extension View {
         return screenWidth / 2 - screenWidth / 20
     }
     
+    
+    @ViewBuilder
+    func fixKeyboardCoversLowerPart() -> some View {
+        if #available(iOS 14.0, *) {
+            self
+        }
+        else {
+            self.modifier(AdaptsToKeyboard())
+        }
+    }
+    
 
     func hideNavigationBar() -> some View {
         return self

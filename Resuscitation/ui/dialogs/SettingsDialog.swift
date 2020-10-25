@@ -76,6 +76,7 @@ struct SettingsDialog: View {
                 Toggle("Record audio", isOn: $recordAudio)
             }
         }
+        .fixKeyboardCoversLowerPart()
         .navigationBarTitle("Settings", displayMode: .inline)
         .navigationBarItems(trailing: Button("Save", action: self.saveSettings))
     }

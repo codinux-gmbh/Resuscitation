@@ -3,6 +3,8 @@ import SwiftUI
 
 struct LogDialog: View {
     
+    static private let SelectedAdditionalLogTimeInformationUserDefaultsKey = "SelectedAdditionalLogTimeInformation"
+    
     static private let EntryTypesWithTimers = [ LogEntryType.rhythmAnalysis.rawValue, LogEntryType.shock.rawValue, LogEntryType.adrenalin.rawValue ]
     
     
@@ -37,6 +39,11 @@ struct LogDialog: View {
         self.entries = ((log.logEntries as? Set<LogEntry>) ?? Set<LogEntry>()).sorted { $0.time! <= $1.time! }
         
         self._playbackTime = State(initialValue: presenter.formatDuration(audioPlayer.currentTimeSeconds))
+        
+        let selectedAdditionalInformationAsString = UserDefaults.standard.string(forKey: Self.SelectedAdditionalLogTimeInformationUserDefaultsKey, defaultValue: AdditionalLogTimeInformation.Off.rawValue)
+        if let selectedAdditionalInformation = AdditionalLogTimeInformation.init(rawValue: selectedAdditionalInformationAsString) {
+            _selectedAdditionalLogTimeInformation = State(initialValue: selectedAdditionalInformation)
+        }
     }
     
 
@@ -126,6 +133,7 @@ struct LogDialog: View {
             }
         }
         .onDisappear {
+            UserDefaults.standard.setValue(selectedAdditionalLogTimeInformation.rawValue, forKey: Self.SelectedAdditionalLogTimeInformationUserDefaultsKey)
             audioPlayer.stop()
         }
     }

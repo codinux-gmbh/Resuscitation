@@ -72,6 +72,10 @@ struct StandardButton: View {
         self.showCountDownOfLengthInSecondsOnClick = showCountDownOfLengthInSecondsOnClick
         self._shouldResetTimer = resetTimer
         self.action = action
+        
+        if let secondsRemaining = showCountDownOfLengthInSecondsOnClick {
+            self._secondsRemaining = State(initialValue: Int(secondsRemaining))
+        }
     }
 
     var body: some View {
@@ -84,7 +88,7 @@ struct StandardButton: View {
                     
                     Spacer()
                     
-                    lastButtonClick.map { lastButtonClick in
+                    showCountDownOfLengthInSecondsOnClick.map { _ in
                         HStack {
                             ProgressBar($countDown, true)
                             

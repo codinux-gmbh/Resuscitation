@@ -9,6 +9,8 @@ struct CodeDialog: View {
     
     static private let HalfScreenButtonsWidth = halfOfScreenWithSpacing
     
+    static private let StateButtonHasBeenPressedColor = Color(red: 0.076, green: 0.869, blue: 0.175)
+    
     
     @Environment(\.presentationMode) var presentation
     
@@ -29,6 +31,11 @@ struct CodeDialog: View {
     @State private var durationString: String = "0:00"
 
     @State private var audioRecordDurationString: String = "0:00"
+    
+    
+    @State private var hasIoIvBeenPressed = false
+    
+    @State private var hasAirwayBeenPressed = false
     
     
     private let audioRecorder = AudioRecorder()
@@ -100,11 +107,13 @@ struct CodeDialog: View {
                         Spacer()
                         
                         StandardButton("IO/IV", self.ioIv)
+                            .background(hasIoIvBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
                     }
                     .padding(.bottom, Self.SpaceBetweenButtons)
 
                     HStack {
                         StandardButton("Airway", self.airway)
+                            .background(hasAirwayBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
 
                         Spacer()
 
@@ -165,10 +174,14 @@ struct CodeDialog: View {
     
     private func ioIv() {
         addLogEntry(.ioIv)
+        
+        hasIoIvBeenPressed = true
     }
     
     private func airway() {
         addLogEntry(.airway)
+        
+        hasAirwayBeenPressed = true
     }
     
     private func lucas() {

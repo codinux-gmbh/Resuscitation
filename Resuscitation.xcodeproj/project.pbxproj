@@ -11,7 +11,6 @@
 		36671307254306D900BD2301 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36671306254306D900BD2301 /* AudioPlayer.swift */; };
 		3667131525432A1400BD2301 /* StandardBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667131425432A1400BD2301 /* StandardBorder.swift */; };
 		3667132C2543440700BD2301 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667132B2543440700BD2301 /* ProgressBar.swift */; };
-		366713342543B77C00BD2301 /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366713332543B77B00BD2301 /* CountDownView.swift */; };
 		3667133F2543CA0300BD2301 /* TextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667133E2543CA0300BD2301 /* TextToSpeech.swift */; };
 		3667134C2545BF8900BD2301 /* AdditionalLogTimeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667134B2545BF8900BD2301 /* AdditionalLogTimeInformation.swift */; };
 		366713512545CBAC00BD2301 /* UIKitDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366713502545CBAC00BD2301 /* UIKitDatePicker.swift */; };
@@ -69,7 +68,6 @@
 		36671306254306D900BD2301 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		3667131425432A1400BD2301 /* StandardBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardBorder.swift; sourceTree = "<group>"; };
 		3667132B2543440700BD2301 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
-		366713332543B77B00BD2301 /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
 		3667133E2543CA0300BD2301 /* TextToSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeech.swift; sourceTree = "<group>"; };
 		3667134B2545BF8900BD2301 /* AdditionalLogTimeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalLogTimeInformation.swift; sourceTree = "<group>"; };
 		366713502545CBAC00BD2301 /* UIKitDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitDatePicker.swift; sourceTree = "<group>"; };
@@ -246,7 +244,6 @@
 				36B70F5A2532927500734588 /* LazyView.swift */,
 				3667131425432A1400BD2301 /* StandardBorder.swift */,
 				36B70F302532771200734588 /* StandardButton.swift */,
-				366713332543B77B00BD2301 /* CountDownView.swift */,
 				3667132B2543440700BD2301 /* ProgressBar.swift */,
 			);
 			path = views;
@@ -441,7 +438,6 @@
 				36B70EBA253265D100734588 /* Resuscitation.xcdatamodeld in Sources */,
 				36B70EF6253268A200734588 /* LogsOverviewDialog.swift in Sources */,
 				36B70F4825328A9500734588 /* LogEntryType.swift in Sources */,
-				366713342543B77C00BD2301 /* CountDownView.swift in Sources */,
 				36B70F7025329F4300734588 /* SwiftExtensions.swift in Sources */,
 				36B70F632532965900734588 /* LogDialog.swift in Sources */,
 				36B70F5B2532927500734588 /* LazyView.swift in Sources */,

@@ -21,6 +21,22 @@ struct StandardButton: View {
     
     @State private var lastButtonClick: Date? = nil
     
+    
+    // count down view
+    
+    private let timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
+    
+    @State private var secondsRemaining: Int = 0
+    
+    @State private var countDown: CGFloat = 1
+    
+    @State private var didInformUserWillSoonCountToZero: Bool = false
+    
+    @State private var textToSpeech = TextToSpeech()
+    
+    @State private var didCountDown: Bool = false
+    
+    
     private let action: () -> Void
     
     
@@ -61,7 +77,14 @@ struct StandardButton: View {
                     Spacer()
                     
                     lastButtonClick.map { lastButtonClick in
-                        CountDownView(presenter, title, lastButtonClick, showCountDownOfLengthInSecondsOnClick!)
+                        HStack {
+                            ProgressBar($countDown, true)
+                            
+                            Spacer()
+                            
+                            Text(presenter.formatDuration(secondsRemaining, 1, true)).onReceive(timer) { _ in self.updateCountDown() }
+                                .monospaceFont()
+                        }
                         .frame(height: 10)
                         .padding(.horizontal, 6)
                         .padding(.bottom, 4)
@@ -80,6 +103,49 @@ struct StandardButton: View {
         
         if showCountDownOfLengthInSecondsOnClick != nil {
             lastButtonClick = Date()
+            updateCountDown()
+            
+            didInformUserWillSoonCountToZero = false
+        }
+    }
+    
+    
+    private func updateCountDown() {
+        guard let lastButtonClick = lastButtonClick, let showCountDownOfLengthInSecondsOnClick = showCountDownOfLengthInSecondsOnClick else { return }
+        
+        let secondsSinceStart = Date().timeIntervalSince(lastButtonClick)
+        
+        let secondsRemaining = Int(showCountDownOfLengthInSecondsOnClick) - Int(secondsSinceStart)
+        
+        if secondsRemaining >= 0 {
+            self.secondsRemaining = secondsRemaining
+            self.countDown = CGFloat(secondsRemaining) / CGFloat(showCountDownOfLengthInSecondsOnClick)
+            self.didCountDown = false
+            
+            let codeSettings = presenter.codeSettings
+            
+            if secondsRemaining == codeSettings.informUserCountSecondsBeforeTimerCountDown && didInformUserWillSoonCountToZero == false {
+                didInformUserWillSoonCountToZero = true
+                
+                informUserTimerWillCountDownSoon(codeSettings)
+            }
+        }
+        else {
+            self.didCountDown = true
+            self.didInformUserWillSoonCountToZero = false
+        }
+    }
+    
+    private func informUserTimerWillCountDownSoon(_ codeSettings: CodeSettings) {
+        if codeSettings.informUserOfTimerCountDownWithSound {
+            DispatchQueue.global(qos: .background).async {
+                let translated = String(format: NSLocalizedString("In %@ seconds %@", comment: ""), String(codeSettings.informUserCountSecondsBeforeTimerCountDown), title)
+                textToSpeech.read(translated)
+            }
+        }
+        
+        if codeSettings.informUserOfTimerCountDownOptically {
+            // TODO: implement button blink
         }
     }
 

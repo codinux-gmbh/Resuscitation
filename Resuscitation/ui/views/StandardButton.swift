@@ -32,6 +32,8 @@ struct StandardButton: View {
     
     @State private var didInformUserWillSoonCountToZero: Bool = false
     
+    @Binding private var shouldResetTimer: Bool
+    
     @State private var textToSpeech = TextToSpeech()
     
     @State private var didCountDown: Bool = false
@@ -45,7 +47,7 @@ struct StandardButton: View {
     }
     
     init(_ title: String, _ width: CGFloat = Self.DefaultButtonWidth, _ action: @escaping () -> Void) {
-        self.init(title, width, Self.DefaultButtonHeight, nil, action)
+        self.init(title, width, Self.DefaultButtonHeight, nil, .constant(false), action)
     }
     
     init(_ title: String, _ showCountDownOfLengthInSecondsOnClick: Int32? = nil, _ action: @escaping () -> Void) {
@@ -54,15 +56,21 @@ struct StandardButton: View {
     
     init(_ title: String, _ width: CGFloat = Self.DefaultButtonWidth,
          _ showCountDownOfLengthInSecondsOnClick: Int32? = nil, _ action: @escaping () -> Void) {
-        self.init(title, width, Self.DefaultButtonHeight, showCountDownOfLengthInSecondsOnClick, action)
+        self.init(title, width, Self.DefaultButtonHeight, showCountDownOfLengthInSecondsOnClick, .constant(false), action)
+    }
+    
+    init(_ title: String, _ width: CGFloat = Self.DefaultButtonWidth,
+         _ showCountDownOfLengthInSecondsOnClick: Int32? = nil, _ resetTimer: Binding<Bool>, _ action: @escaping () -> Void) {
+        self.init(title, width, Self.DefaultButtonHeight, showCountDownOfLengthInSecondsOnClick, resetTimer, action)
     }
     
     init(_ title: String, _ width: CGFloat = Self.DefaultButtonWidth, _ height: CGFloat = Self.DefaultButtonHeight,
-         _ showCountDownOfLengthInSecondsOnClick: Int32? = nil, _ action: @escaping () -> Void) {
+         _ showCountDownOfLengthInSecondsOnClick: Int32? = nil, _ resetTimer: Binding<Bool> = .constant(false), _ action: @escaping () -> Void) {
         self.title = title.localize()
         self.width = width
         self.height = height
         self.showCountDownOfLengthInSecondsOnClick = showCountDownOfLengthInSecondsOnClick
+        self._shouldResetTimer = resetTimer
         self.action = action
     }
 
@@ -102,15 +110,25 @@ struct StandardButton: View {
         self.action()
         
         if showCountDownOfLengthInSecondsOnClick != nil {
-            lastButtonClick = Date()
-            updateCountDown()
-            
-            didInformUserWillSoonCountToZero = false
+            resetTimer()
         }
+    }
+    
+    private func resetTimer() {
+        lastButtonClick = Date()
+        updateCountDown()
+        
+        didInformUserWillSoonCountToZero = false
     }
     
     
     private func updateCountDown() {
+        if shouldResetTimer {
+            shouldResetTimer = false
+            resetTimer()
+            return
+        }
+        
         guard let lastButtonClick = lastButtonClick, let showCountDownOfLengthInSecondsOnClick = showCountDownOfLengthInSecondsOnClick else { return }
         
         let secondsSinceStart = Date().timeIntervalSince(lastButtonClick)

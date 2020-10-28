@@ -33,6 +33,8 @@ struct CodeDialog: View {
     @State private var audioRecordDurationString: String = "0:00"
     
     
+    @State private var resetRhythmAnalysisTimer: Bool = false
+    
     @State private var hasIoIvBeenPressed = false
     
     @State private var hasAirwayBeenPressed = false
@@ -87,7 +89,7 @@ struct CodeDialog: View {
                 Spacer()
                 
                 VStack { // needed as a SwiftUI stack can handle only approximately 10 children
-                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, codeSettings.rhythmAnalysisTimerInSeconds, self.rhythmAnalysis)
+                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, codeSettings.rhythmAnalysisTimerInSeconds, $resetRhythmAnalysisTimer, self.rhythmAnalysis)
                         .padding(.bottom, Self.SpaceBetweenButtons)
                     
                     Spacer()
@@ -162,6 +164,8 @@ struct CodeDialog: View {
     
     private func shock() {
         addLogEntry(.shock)
+        
+        resetRhythmAnalysisTimer = true
     }
     
     private func adrenalin() {

@@ -36,6 +36,8 @@ struct StandardButton: View {
     
     @State private var showVisuallyThatTimerIsRunningOut = false
     
+    @State private var showVisuallyThatTimerHasCountDown = false
+    
     @State private var textToSpeech = TextToSpeech()
     
     @State private var didCountDown: Bool = false
@@ -113,14 +115,12 @@ struct StandardButton: View {
     }
     
     private func getBackgroundColor() -> Color? {
-        if showCountDownOfLengthInSecondsOnClick != nil {
-            if secondsRemaining <= 0 {
-                return Color.red
-            }
-            
-            if showVisuallyThatTimerIsRunningOut {
-                return Color.orange
-            }
+        if showVisuallyThatTimerHasCountDown {
+            return Color.red
+        }
+        
+        if showVisuallyThatTimerIsRunningOut {
+            return Color.orange
         }
         
         return nil
@@ -141,6 +141,7 @@ struct StandardButton: View {
         
         didInformUserWillSoonCountToZero = false
         showVisuallyThatTimerIsRunningOut = false
+        showVisuallyThatTimerHasCountDown = false
     }
     
     
@@ -172,6 +173,10 @@ struct StandardButton: View {
             }
         }
         else {
+            if didCountDown == false {
+                informUserTimerHasCountDown(presenter.codeSettings)
+            }
+            
             self.didCountDown = true
             self.didInformUserWillSoonCountToZero = false
         }
@@ -188,6 +193,23 @@ struct StandardButton: View {
         if codeSettings.informUserOfTimerCountDownOptically {
             showVisuallyThatTimerIsRunningOut = true
         }
+    }
+    
+    private func informUserTimerHasCountDown(_ codeSettings: CodeSettings) {
+        if codeSettings.informUserOfTimerCountDownWithSound {
+            DispatchQueue.global(qos: .background).async {
+                speakOut(title)
+            }
+        }
+        
+        if codeSettings.informUserOfTimerCountDownOptically {
+            showVisuallyThatTimerIsRunningOut = false
+            showVisuallyThatTimerHasCountDown = true
+        }
+    }
+    
+    private func speakOut(_ text: String) {
+        textToSpeech.read(text)
     }
 
 }

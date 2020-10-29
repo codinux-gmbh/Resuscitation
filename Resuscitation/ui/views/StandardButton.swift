@@ -34,6 +34,8 @@ struct StandardButton: View {
     
     @Binding private var shouldResetTimer: Bool
     
+    @State private var showVisuallyThatTimerIsRunningOut = false
+    
     @State private var textToSpeech = TextToSpeech()
     
     @State private var didCountDown: Bool = false
@@ -107,6 +109,21 @@ struct StandardButton: View {
         }
         .frame(width: width, height: height, alignment: .center)
         .overlay(StandardBorder())
+        .background(getBackgroundColor())
+    }
+    
+    private func getBackgroundColor() -> Color? {
+        if showCountDownOfLengthInSecondsOnClick != nil {
+            if secondsRemaining <= 0 {
+                return Color.red
+            }
+            
+            if showVisuallyThatTimerIsRunningOut {
+                return Color.orange
+            }
+        }
+        
+        return nil
     }
     
     
@@ -123,12 +140,14 @@ struct StandardButton: View {
         updateCountDown()
         
         didInformUserWillSoonCountToZero = false
+        showVisuallyThatTimerIsRunningOut = false
     }
     
     
     private func updateCountDown() {
         if shouldResetTimer {
             shouldResetTimer = false
+            
             resetTimer()
             return
         }
@@ -167,7 +186,7 @@ struct StandardButton: View {
         }
         
         if codeSettings.informUserOfTimerCountDownOptically {
-            // TODO: implement button blink
+            showVisuallyThatTimerIsRunningOut = true
         }
     }
 

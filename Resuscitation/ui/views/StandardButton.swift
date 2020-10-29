@@ -5,7 +5,7 @@ struct StandardButton: View {
     
     static let DefaultButtonWidth: CGFloat = Self.halfOfScreenWithSpacing
     
-    static let DefaultButtonHeight: CGFloat = Self.screenHeight / 8 < 100 ? Self.screenHeight / 8 : 100
+    static let DefaultButtonHeight: CGFloat = CodeDialog.ButtonHeight
     
     
     @Inject private var presenter: Presenter
@@ -110,6 +110,7 @@ struct StandardButton: View {
             }
         }
         .frame(width: width, height: height, alignment: .center)
+        .padding(.vertical, 0)
         .overlay(StandardBorder())
         .background(getBackgroundColor())
     }

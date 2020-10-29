@@ -3,8 +3,23 @@ import PopupView
 
 
 struct CodeDialog: View {
+    
+    static private let TotalTimeHeight: CGFloat = 30
+    static private let SpaceBeforeTotalTime: CGFloat = 20
+    static private let SpaceAfterTotalTime: CGFloat = 10
 
-    static private let SpaceBetweenButtons: CGFloat = 12
+    static private let VerticalSpaceBetweenButtons: CGFloat = 14
+    
+    static private let AudioRecordingHeight: CGFloat = 35
+    static private let SpaceBeforeAudioRecording: CGFloat = 24
+    static private let SpaceAfterAudioRecording: CGFloat = SpaceBeforeAudioRecording
+    
+    static private let SpaceBeforeEndOfDialog: CGFloat = 6
+    
+    static private let TotalNonButtonsHeight: CGFloat = TotalTimeHeight + SpaceBeforeTotalTime + SpaceAfterTotalTime + 3 * VerticalSpaceBetweenButtons +
+        AudioRecordingHeight + SpaceBeforeAudioRecording + SpaceAfterAudioRecording + SpaceBeforeEndOfDialog
+    
+    static let ButtonHeight: CGFloat = (screenHeightWithoutStatusBar - TotalNonButtonsHeight) / CGFloat(5)
     
     static private let FullScreenButtonsWidth = screenWidth
     
@@ -73,7 +88,7 @@ struct CodeDialog: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack {
+                VStack(spacing: 0) {
                     HStack {
                         Text("Total time")
                         
@@ -88,17 +103,15 @@ struct CodeDialog: View {
                         }
                         .monospaceFont()
                     }
-                    .frame(height: 30)
-                    .padding(.top, 20)
+                    .frame(height: Self.TotalTimeHeight)
+                    .padding(.top, Self.SpaceBeforeTotalTime)
                     .padding(.horizontal, 12)
+                    .padding(.bottom, Self.SpaceAfterTotalTime)
                     
-                    Spacer()
-                    
-                    VStack { // needed as a SwiftUI stack can handle only approximately 10 children
+                    VStack(spacing: 0) { // needed as a SwiftUI stack can handle only approximately 10 children
                         StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, codeSettings.rhythmAnalysisTimerInSeconds, $resetRhythmAnalysisTimer, self.rhythmAnalysis)
-                            .padding(.bottom, Self.SpaceBetweenButtons)
-                        
-                        Spacer()
+                            .padding(.top, 0)
+                            .padding(.bottom, Self.VerticalSpaceBetweenButtons)
                         
                         HStack {
                             StandardButton("Shock", codeSettings.shockTimerInSeconds, self.shock)
@@ -107,7 +120,8 @@ struct CodeDialog: View {
                             
                             StandardButton("Adrenalin", codeSettings.adrenalinTimerInSeconds, self.adrenalin)
                         }
-                        .padding(.bottom, Self.SpaceBetweenButtons)
+                        .padding(.top, 0)
+                        .padding(.bottom, Self.VerticalSpaceBetweenButtons)
                         
                         HStack {
                             StandardButton("Amiodaron", self.amiodaron)
@@ -117,7 +131,8 @@ struct CodeDialog: View {
                             StandardButton("IO/IV", self.ioIv)
                                 .background(hasIoIvBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
                         }
-                        .padding(.bottom, Self.SpaceBetweenButtons)
+                        .padding(.top, 0)
+                        .padding(.bottom, Self.VerticalSpaceBetweenButtons)
 
                         HStack {
                             StandardButton("Airway", self.airway)
@@ -127,14 +142,15 @@ struct CodeDialog: View {
 
                             StandardButton("LUCAS", self.lucas)
                         }
+                        .padding(.top, 0)
+                        .padding(.bottom, 0)
                     }
-                    
-                    Spacer()
+                    .padding(.vertical, 0)
                     
                     HStack {
                         Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
                             .resizable()
-                            .frame(width: 35, height: 35)
+                            .frame(width: Self.AudioRecordingHeight, height: Self.AudioRecordingHeight)
                             .foregroundColor(.red)
                         
                         Text(audioRecorder.isRecording ? "Recording" : "Resume recording")
@@ -144,20 +160,21 @@ struct CodeDialog: View {
                         Text(audioRecordDurationString)
                             .monospaceFont()
                     }
-                    .padding()
-                    .padding(.vertical, 12)
+                    .padding(.horizontal, 7)
+                    .padding(.top, Self.SpaceBeforeAudioRecording)
+                    .padding(.bottom, Self.SpaceAfterAudioRecording)
                     .makeBackgroundTapable()
                     .onTapGesture {
                         self.toggleRecording()
                     }
                     
-                    Spacer()
-                    
                     StandardButton("R O S C", Self.FullScreenButtonsWidth, self.stopResuscitation)
-                        .padding(.bottom, 6)
+                        .padding(.top, 0)
+                        .padding(.bottom, Self.SpaceBeforeEndOfDialog)
                 }
             }
-        }.popup(isPresented: $showAdministerAmiodaronNotification, type: .default, autohideIn: 10, closeOnTapOutside: true) {
+        }
+        .popup(isPresented: $showAdministerAmiodaronNotification, type: .default, autohideIn: 10, closeOnTapOutside: true) {
             HStack {
                 Spacer()
                 

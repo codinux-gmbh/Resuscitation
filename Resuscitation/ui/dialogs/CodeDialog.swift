@@ -90,18 +90,31 @@ struct CodeDialog: View {
             ScrollView {
                 VStack(spacing: 0) {
                     HStack {
-                        Text("Total time")
+                        NavigationLink(destination: LazyView(SettingsDialog(presenter))) {
+                            HStack {
+                                Image(systemName: "gear")
+
+                                Text("Settings")
+                            }
+                        }
                         
                         Spacer()
                         
-                        Text(durationString).onReceive(timer) { _ in
-                            durationString = presenter.formatDuration(startTime, 2)
+                        HStack {
+                            Text("Total time")
                             
-                            if audioRecorder.isRecording {
-                                audioRecordDurationString = presenter.formatDuration(audioRecorder.duration)
+                            Spacer()
+                                .frame(width: 8)
+                            
+                            Text(durationString).onReceive(timer) { _ in
+                                durationString = presenter.formatDuration(startTime, 2)
+                                
+                                if audioRecorder.isRecording {
+                                    audioRecordDurationString = presenter.formatDuration(audioRecorder.duration)
+                                }
                             }
+                            .monospaceFont()
                         }
-                        .monospaceFont()
                     }
                     .frame(height: Self.TotalTimeHeight)
                     .padding(.top, Self.SpaceBeforeTotalTime)

@@ -1,4 +1,5 @@
 import SwiftUI
+import PopupView
 
 
 struct CodeDialog: View {
@@ -33,6 +34,10 @@ struct CodeDialog: View {
     @State private var audioRecordDurationString: String = "0:00"
     
     
+    @State private var countPressesOnShock = 0
+    
+    @State private var showAdministerAmiodaronNotification = false
+    
     @State private var resetRhythmAnalysisTimer: Bool = false
     
     @State private var hasIoIvBeenPressed = false
@@ -66,90 +71,104 @@ struct CodeDialog: View {
 
     
     var body: some View {
-        ScrollView {
-            VStack {
-                HStack {
-                    Text("Total time")
+        ZStack {
+            ScrollView {
+                VStack {
+                    HStack {
+                        Text("Total time")
+                        
+                        Spacer()
+                        
+                        Text(durationString).onReceive(timer) { _ in
+                            durationString = presenter.formatDuration(startTime, 2)
+                            
+                            if audioRecorder.isRecording {
+                                audioRecordDurationString = presenter.formatDuration(audioRecorder.duration)
+                            }
+                        }
+                        .monospaceFont()
+                    }
+                    .frame(height: 30)
+                    .padding(.top, 20)
+                    .padding(.horizontal, 12)
                     
                     Spacer()
                     
-                    Text(durationString).onReceive(timer) { _ in
-                        durationString = presenter.formatDuration(startTime, 2)
+                    VStack { // needed as a SwiftUI stack can handle only approximately 10 children
+                        StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, codeSettings.rhythmAnalysisTimerInSeconds, $resetRhythmAnalysisTimer, self.rhythmAnalysis)
+                            .padding(.bottom, Self.SpaceBetweenButtons)
                         
-                        if audioRecorder.isRecording {
-                            audioRecordDurationString = presenter.formatDuration(audioRecorder.duration)
+                        Spacer()
+                        
+                        HStack {
+                            StandardButton("Shock", codeSettings.shockTimerInSeconds, self.shock)
+                            
+                            Spacer()
+                            
+                            StandardButton("Adrenalin", codeSettings.adrenalinTimerInSeconds, self.adrenalin)
+                        }
+                        .padding(.bottom, Self.SpaceBetweenButtons)
+                        
+                        HStack {
+                            StandardButton("Amiodaron", self.amiodaron)
+                            
+                            Spacer()
+                            
+                            StandardButton("IO/IV", self.ioIv)
+                                .background(hasIoIvBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
+                        }
+                        .padding(.bottom, Self.SpaceBetweenButtons)
+
+                        HStack {
+                            StandardButton("Airway", self.airway)
+                                .background(hasAirwayBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
+
+                            Spacer()
+
+                            StandardButton("LUCAS", self.lucas)
                         }
                     }
-                    .monospaceFont()
-                }
-                .frame(height: 30)
-                .padding(.top, 20)
-                .padding(.horizontal, 12)
-                
-                Spacer()
-                
-                VStack { // needed as a SwiftUI stack can handle only approximately 10 children
-                    StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, codeSettings.rhythmAnalysisTimerInSeconds, $resetRhythmAnalysisTimer, self.rhythmAnalysis)
-                        .padding(.bottom, Self.SpaceBetweenButtons)
                     
                     Spacer()
                     
                     HStack {
-                        StandardButton("Shock", codeSettings.shockTimerInSeconds, self.shock)
+                        Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
+                            .resizable()
+                            .frame(width: 35, height: 35)
+                            .foregroundColor(.red)
+                        
+                        Text(audioRecorder.isRecording ? "Recording" : "Resume recording")
                         
                         Spacer()
                         
-                        StandardButton("Adrenalin", codeSettings.adrenalinTimerInSeconds, self.adrenalin)
+                        Text(audioRecordDurationString)
+                            .monospaceFont()
                     }
-                    .padding(.bottom, Self.SpaceBetweenButtons)
-                    
-                    HStack {
-                        StandardButton("Amiodaron", self.amiodaron)
-                        
-                        Spacer()
-                        
-                        StandardButton("IO/IV", self.ioIv)
-                            .background(hasIoIvBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
+                    .padding()
+                    .padding(.vertical, 12)
+                    .makeBackgroundTapable()
+                    .onTapGesture {
+                        self.toggleRecording()
                     }
-                    .padding(.bottom, Self.SpaceBetweenButtons)
-
-                    HStack {
-                        StandardButton("Airway", self.airway)
-                            .background(hasAirwayBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
-
-                        Spacer()
-
-                        StandardButton("LUCAS", self.lucas)
-                    }
-                }
-                
-                Spacer()
-                
-                HStack {
-                    Image(systemName: audioRecorder.isRecording ? "pause.rectangle.fill" : "play.rectangle.fill")
-                        .resizable()
-                        .frame(width: 35, height: 35)
-                        .foregroundColor(.red)
-                    
-                    Text(audioRecorder.isRecording ? "Recording" : "Resume recording")
                     
                     Spacer()
                     
-                    Text(audioRecordDurationString)
-                        .monospaceFont()
+                    StandardButton("R O S C", Self.FullScreenButtonsWidth, self.stopResuscitation)
+                        .padding(.bottom, 6)
                 }
-                .padding()
-                .padding(.vertical, 12)
-                .makeBackgroundTapable()
-                .onTapGesture {
-                    self.toggleRecording()
-                }
-                
-                Spacer()
-                
-                StandardButton("R O S C", Self.FullScreenButtonsWidth, self.stopResuscitation)
-                    .padding(.bottom, 6)
             }
+        }.popup(isPresented: $showAdministerAmiodaronNotification, type: .default, autohideIn: 10, closeOnTapOutside: true) {
+            HStack {
+                Spacer()
+                
+                Text("Administer Amiodaron")
+                
+                Spacer()
+            }
+            .frame(width: Self.screenWidth, height: 80)
+            .alignHorizontally(.center)
+            .background(Color.gray)
+            .cornerRadius(30.0)
         }
         .onDisappear {
             presenter.reenableScreenLock()
@@ -166,6 +185,12 @@ struct CodeDialog: View {
         addLogEntry(.shock)
         
         resetRhythmAnalysisTimer = true
+        
+        countPressesOnShock = countPressesOnShock + 1
+        
+        if countPressesOnShock == 3 || countPressesOnShock == 5 {
+            showAdministerAmiodaronNotification = true
+        }
     }
     
     private func adrenalin() {

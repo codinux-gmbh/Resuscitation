@@ -24,7 +24,7 @@ struct StandardButton: View {
     
     // count down view
     
-    private let timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
+    @State private var timer = Timer.publish(every: 0.25, on: .main, in: .common).autoconnect()
     
     @State private var secondsRemaining: Int = 0
     
@@ -113,6 +113,9 @@ struct StandardButton: View {
         .padding(.vertical, 0)
         .overlay(StandardBorder())
         .background(getBackgroundColor())
+        .onDisappear {
+            textToSpeech.stop() // stops current text-to-speech
+        }
     }
     
     private func getBackgroundColor() -> Color? {

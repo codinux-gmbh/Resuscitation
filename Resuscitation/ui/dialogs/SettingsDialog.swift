@@ -4,6 +4,8 @@ import Combine
 
 struct SettingsDialog: View {
     
+    static private let PickerWidth = CGFloat(50)
+    
     
     @Environment(\.presentationMode) var presentation
     
@@ -11,12 +13,24 @@ struct SettingsDialog: View {
     private let presenter: Presenter
     
     private let codeSettings: CodeSettings
+    
+    @State private var rhythmAnalysisTimerMinutes: Int = 2
 
-    @State private var rhythmAnalysisTimer: Date = Date()
+    @State private var rhythmAnalysisTimerSeconds: Int = 0
     
-    @State private var shockTimer: Date = Date()
+    @State private var showRhythmAnalysisTimerPicker = false
     
-    @State private var adrenalinTimer: Date = Date()
+    @State private var shockTimerMinutes: Int = 2
+    
+    @State private var shockTimerSeconds: Int = 0
+    
+    @State private var showShockTimerPicker = false
+    
+    @State private var adrenalinTimerMinutes: Int = 3
+    
+    @State private var adrenalinTimerSeconds: Int = 0
+    
+    @State private var showAdrenalinTimerPicker = false
     
     @State private var informUserCountSecondsBeforeTimerCountDown: Int = 10
     
@@ -34,9 +48,14 @@ struct SettingsDialog: View {
         
         codeSettings = presenter.codeSettings
         
-        _rhythmAnalysisTimer = State(initialValue: formatSecondsAsDate(codeSettings.rhythmAnalysisTimerInSeconds))
-        _shockTimer = State(initialValue: formatSecondsAsDate(codeSettings.shockTimerInSeconds))
-        _adrenalinTimer = State(initialValue: formatSecondsAsDate(codeSettings.adrenalinTimerInSeconds))
+        _rhythmAnalysisTimerMinutes = State(initialValue: Int(codeSettings.rhythmAnalysisTimerInSeconds / 60))
+        _rhythmAnalysisTimerSeconds = State(initialValue: Int(codeSettings.rhythmAnalysisTimerInSeconds % 60))
+        
+        _shockTimerMinutes = State(initialValue: Int(codeSettings.shockTimerInSeconds / 60))
+        _shockTimerSeconds = State(initialValue: Int(codeSettings.shockTimerInSeconds % 60))
+        
+        _adrenalinTimerMinutes = State(initialValue: Int(codeSettings.adrenalinTimerInSeconds / 60))
+        _adrenalinTimerSeconds = State(initialValue: Int(codeSettings.adrenalinTimerInSeconds % 60))
         
         _informUserCountSecondsBeforeTimerCountDown = State(initialValue: Int(codeSettings.informUserCountSecondsBeforeTimerCountDown))
         _informUserOfTimerCountDownOptically = State(initialValue: codeSettings.informUserOfTimerCountDownOptically)
@@ -48,11 +67,11 @@ struct SettingsDialog: View {
 
     var body: some View {
         Form {
-            createTimeSection("Rhythm Analysis Timer", $rhythmAnalysisTimer)
+            createTimeSection("Rhythm Analysis Timer", $rhythmAnalysisTimerMinutes, $rhythmAnalysisTimerSeconds, $showRhythmAnalysisTimerPicker)
             
-            createTimeSection("Shock Timer", $shockTimer)
+            createTimeSection("Shock Timer", $shockTimerMinutes, $shockTimerSeconds, $showShockTimerPicker)
             
-            createTimeSection("Adrenalin Timer", $adrenalinTimer)
+            createTimeSection("Adrenalin Timer", $adrenalinTimerMinutes, $adrenalinTimerSeconds, $showAdrenalinTimerPicker)
             
             Section {
                 HStack {
@@ -98,41 +117,54 @@ struct SettingsDialog: View {
     }
     
     
-    private func createTimeSection(_ title: LocalizedStringKey, _ timer: Binding<Date>) -> some View {
+    private func createTimeSection(_ title: LocalizedStringKey, _ timerMinutes: Binding<Int>, _ timerSeconds: Binding<Int>, _ showPicker: Binding<Bool>) -> some View {
         return Section {
-            DatePicker(title, selection: timer, displayedComponents: .hourAndMinute)
+            HStack {
+                Text(title)
+                
+                Spacer()
+                
+                Text(String(format: "%02d:%02d", timerMinutes.wrappedValue, timerSeconds.wrappedValue))
+                    .foregroundColor(.secondaryLabel)
+            }
+            .makeBackgroundTapable()
+            .onTapGesture {
+                showPicker.wrappedValue.toggle()
+            }
+            
+            if showPicker.wrappedValue {
+                HStack {
+                    Spacer()
+                    
+                    Picker(selection: timerMinutes, label: EmptyView()) {
+                        ForEach((0...10), id: \.self) { second in
+                            Text("\(second)").tag(second)
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(width: Self.PickerWidth)
+                    .clipped()
+                    
+                    Picker(selection: timerSeconds, label: EmptyView()) {
+                        ForEach((0...59), id: \.self) { second in
+                            Text("\(second)").tag(second)
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(width: Self.PickerWidth)
+                    .clipped()
+                    
+                    Spacer()
+                }
+            }
         }
-    }
-    
-    private func formatSecondsAsDate(_ timeInSeconds: Int32) -> Date {
-        return formatSecondsAsDate(Int(timeInSeconds))
-    }
-    
-    private func formatSecondsAsDate(_ timeInSeconds: Int) -> Date {
-    // as there is no picker for minutes and seconds we misuse a DatePicker and tell him it's hours and minutes
-
-        var components = DateComponents()
-        
-        components.hour = timeInSeconds / 60
-        components.minute = timeInSeconds % 60
-        
-        return Calendar.current.date(from: components) ?? Date()
-    }
-    
-    private func convertDateToTimeInSeconds(_ time: Date) -> Int32 {
-        let calendar = Calendar.current
-        
-        let minutes = calendar.component(.hour, from: time)
-        let seconds = calendar.component(.minute, from: time)
-        
-        return Int32(minutes * 60 + seconds)
     }
     
     
     private func saveSettings() {
-        codeSettings.rhythmAnalysisTimerInSeconds = convertDateToTimeInSeconds(rhythmAnalysisTimer)
-        codeSettings.shockTimerInSeconds = convertDateToTimeInSeconds(shockTimer)
-        codeSettings.adrenalinTimerInSeconds = convertDateToTimeInSeconds(adrenalinTimer)
+        codeSettings.rhythmAnalysisTimerInSeconds = Int32(rhythmAnalysisTimerMinutes * 60 + rhythmAnalysisTimerSeconds)
+        codeSettings.shockTimerInSeconds = Int32(shockTimerMinutes * 60 + shockTimerSeconds)
+        codeSettings.adrenalinTimerInSeconds = Int32(adrenalinTimerMinutes * 60 + adrenalinTimerSeconds)
         
         codeSettings.informUserCountSecondsBeforeTimerCountDown = Int32(informUserCountSecondsBeforeTimerCountDown)
         codeSettings.informUserOfTimerCountDownOptically = informUserOfTimerCountDownOptically

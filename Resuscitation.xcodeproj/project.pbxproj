@@ -13,7 +13,6 @@
 		3667132C2543440700BD2301 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667132B2543440700BD2301 /* ProgressBar.swift */; };
 		3667133F2543CA0300BD2301 /* TextToSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667133E2543CA0300BD2301 /* TextToSpeech.swift */; };
 		3667134C2545BF8900BD2301 /* AdditionalLogTimeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3667134B2545BF8900BD2301 /* AdditionalLogTimeInformation.swift */; };
-		366713512545CBAC00BD2301 /* UIKitDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366713502545CBAC00BD2301 /* UIKitDatePicker.swift */; };
 		366713562545CC2F00BD2301 /* AdaptsToKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366713552545CC2F00BD2301 /* AdaptsToKeyboard.swift */; };
 		36B70EB3253265D100734588 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB2253265D100734588 /* AppDelegate.swift */; };
 		36B70EB5253265D100734588 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B70EB4253265D100734588 /* SceneDelegate.swift */; };
@@ -70,7 +69,6 @@
 		3667132B2543440700BD2301 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		3667133E2543CA0300BD2301 /* TextToSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToSpeech.swift; sourceTree = "<group>"; };
 		3667134B2545BF8900BD2301 /* AdditionalLogTimeInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalLogTimeInformation.swift; sourceTree = "<group>"; };
-		366713502545CBAC00BD2301 /* UIKitDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitDatePicker.swift; sourceTree = "<group>"; };
 		366713552545CC2F00BD2301 /* AdaptsToKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptsToKeyboard.swift; sourceTree = "<group>"; };
 		36B70EAF253265D100734588 /* Resuscitation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Resuscitation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B70EB2253265D100734588 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 				36B70F8E2532A81700734588 /* UIAlert.swift */,
 				36B70F7B2532A7AC00734588 /* ActionSheet.swift */,
 				36B70F742532A71C00734588 /* UIKitExtensions.swift */,
-				366713502545CBAC00BD2301 /* UIKitDatePicker.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -424,7 +421,6 @@
 				36B70F8F2532A81700734588 /* UIAlert.swift in Sources */,
 				36B70F5625328C7600734588 /* CoreDataExtensions.swift in Sources */,
 				36B70F22253272C800734588 /* ViewExtensions.swift in Sources */,
-				366713512545CBAC00BD2301 /* UIKitDatePicker.swift in Sources */,
 				36B70EEB253267F200734588 /* CodeDialog.swift in Sources */,
 				36B70EB5253265D100734588 /* SceneDelegate.swift in Sources */,
 				36B70F7C2532A7AC00734588 /* ActionSheet.swift in Sources */,

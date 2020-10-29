@@ -145,6 +145,9 @@ struct SettingsDialog: View {
                     .frame(width: Self.PickerWidth)
                     .clipped()
                     
+                    Spacer()
+                        .frame(width: 30)
+                    
                     Picker(selection: timerSeconds, label: EmptyView()) {
                         ForEach((0...59), id: \.self) { second in
                             Text("\(second)").tag(second)

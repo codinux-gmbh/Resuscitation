@@ -114,6 +114,7 @@ struct StandardButton: View {
         .overlay(StandardBorder())
         .background(getBackgroundColor())
         .onDisappear {
+            timer.upstream.connect().cancel() // prevents future text-to-speech even after having navigated away from CodeDialog for a long time
             textToSpeech.stop() // stops current text-to-speech
         }
     }

@@ -18,7 +18,9 @@ struct SettingsDialog: View {
     
     @State private var adrenalinTimer: Date = Date()
     
-    @State private var informUserCountSecondsBeforeTimerCountDown: String = "10"
+    @State private var informUserCountSecondsBeforeTimerCountDown: Int = 10
+    
+    @State private var showInformUserCountSecondsBeforeTimerCountDownPicker = false
     
     @State private var informUserOfTimerCountDownOptically: Bool = true
     
@@ -36,7 +38,7 @@ struct SettingsDialog: View {
         _shockTimer = State(initialValue: formatSecondsAsDate(codeSettings.shockTimerInSeconds))
         _adrenalinTimer = State(initialValue: formatSecondsAsDate(codeSettings.adrenalinTimerInSeconds))
         
-        _informUserCountSecondsBeforeTimerCountDown = State(initialValue: String(codeSettings.informUserCountSecondsBeforeTimerCountDown))
+        _informUserCountSecondsBeforeTimerCountDown = State(initialValue: Int(codeSettings.informUserCountSecondsBeforeTimerCountDown))
         _informUserOfTimerCountDownOptically = State(initialValue: codeSettings.informUserOfTimerCountDownOptically)
         _informUserOfTimerCountDownWithSound = State(initialValue: codeSettings.informUserOfTimerCountDownWithSound)
         
@@ -54,17 +56,31 @@ struct SettingsDialog: View {
             
             Section {
                 HStack {
-                    TextField("", text: $informUserCountSecondsBeforeTimerCountDown)
-                        .keyboardType(.numberPad)
-                        .onReceive(Just(informUserCountSecondsBeforeTimerCountDown)) { newValue in
-                            let filtered = newValue.filter { "0123456789".contains($0) }
-                            if filtered != newValue {
-                                self.informUserCountSecondsBeforeTimerCountDown = filtered
+                    Text("Warning before timer countdown ends")
+                    
+                    Spacer()
+                    
+                    Text("\(informUserCountSecondsBeforeTimerCountDown)")
+                        .foregroundColor(.secondaryLabel)
+                }
+                .makeBackgroundTapable()
+                .onTapGesture {
+                    showInformUserCountSecondsBeforeTimerCountDownPicker.toggle()
+                }
+                
+                if showInformUserCountSecondsBeforeTimerCountDownPicker {
+                    HStack {
+                        Spacer()
+                        
+                        Picker("", selection: $informUserCountSecondsBeforeTimerCountDown) {
+                            ForEach((0...180), id: \.self) { second in
+                                Text("\(second)").tag(second)
                             }
                         }
-                        .frame(width: 30)
-                    
-                    Text("seconds before timer count down to inform user via")
+                        .pickerStyle(WheelPickerStyle())
+                        
+                        Spacer()
+                    }
                 }
                 
                 Toggle("Inform optically", isOn: $informUserOfTimerCountDownOptically)
@@ -118,7 +134,7 @@ struct SettingsDialog: View {
         codeSettings.shockTimerInSeconds = convertDateToTimeInSeconds(shockTimer)
         codeSettings.adrenalinTimerInSeconds = convertDateToTimeInSeconds(adrenalinTimer)
         
-        codeSettings.informUserCountSecondsBeforeTimerCountDown = Int32(informUserCountSecondsBeforeTimerCountDown) ?? 0 // why?
+        codeSettings.informUserCountSecondsBeforeTimerCountDown = Int32(informUserCountSecondsBeforeTimerCountDown)
         codeSettings.informUserOfTimerCountDownOptically = informUserOfTimerCountDownOptically
         codeSettings.informUserOfTimerCountDownWithSound = informUserOfTimerCountDownWithSound
         

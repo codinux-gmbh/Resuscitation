@@ -51,7 +51,7 @@
 "Rhythm Analysis Timer" = "Rhythm Analysis Timer";
 "Shock Timer" = "Shock Timer";
 "Adrenalin Timer" = "Adrenalin Timer";
-"seconds before timer count down to inform user via" = "seconds before timer count down to inform user via";
+"Warning before timer countdown ends" = "Warning before timer countdown ends (sec)";
 "Inform optically" = "Inform optically";
 "Inform with sound" = "Inform with sound";
 "Record audio" = "Audio Log";

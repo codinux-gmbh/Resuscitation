@@ -51,8 +51,8 @@
 "Rhythm Analysis Timer" = "Pulskontrolle(?) Zeitabstände";
 "Shock Timer" = "Defibrillation Zeitabstände";
 "Adrenalin Timer" = "Adrenalin Zeitabstände";
-"seconds before timer count down to inform user via" = "Sekunden bevor Timer abläuft informieren mit";
-"Inform optically" = "Blitzlichgewitter";
+"Warning before timer countdown ends" = "Warnen bevor Timer abläuft (Sekunden)";
+"Inform optically" = "Blitzlichtgewitter";
 "Inform with sound" = "Computerstimmen";
 "Record audio" = "Ton aufnehmen";
 

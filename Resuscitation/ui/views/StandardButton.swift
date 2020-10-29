@@ -96,7 +96,7 @@ struct StandardButton: View {
                             
                             Spacer()
                             
-                            Text(presenter.formatDuration(secondsRemaining, 1, true)).onReceive(timer) { _ in self.updateCountDown() }
+                            Text(presenter.formatDuration(secondsRemaining, 1)).onReceive(timer) { _ in self.updateCountDown() }
                                 .monospaceFont()
                         }
                         .frame(height: 10)

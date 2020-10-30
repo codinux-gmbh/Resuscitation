@@ -123,38 +123,38 @@ struct CodeDialog: View {
                     .padding(.bottom, Self.SpaceAfterTotalTime)
                     
                     VStack(spacing: 0) { // needed as a SwiftUI stack can handle only approximately 10 children
-                        StandardButton("Rhythm Analysis", Self.FullScreenButtonsWidth, codeSettings.rhythmAnalysisTimerInSeconds, $resetRhythmAnalysisTimer, self.rhythmAnalysis)
+                        CodeActionButton("Rhythm Analysis", Self.FullScreenButtonsWidth, codeSettings.rhythmAnalysisTimerInSeconds, $resetRhythmAnalysisTimer, self.rhythmAnalysis)
                             .padding(.top, 0)
                             .padding(.bottom, Self.VerticalSpaceBetweenButtons)
                         
                         HStack {
-                            StandardButton("Shock", codeSettings.shockTimerInSeconds, self.shock)
+                            CodeActionButton("Shock", codeSettings.shockTimerInSeconds, self.shock)
                             
                             Spacer()
                             
-                            StandardButton("Adrenalin", codeSettings.adrenalinTimerInSeconds, self.adrenalin)
+                            CodeActionButton("Adrenalin", codeSettings.adrenalinTimerInSeconds, self.adrenalin)
                         }
                         .padding(.top, 0)
                         .padding(.bottom, Self.VerticalSpaceBetweenButtons)
                         
                         HStack {
-                            StandardButton("Amiodaron", self.amiodaron)
+                            CodeActionButton("Amiodaron", self.amiodaron)
                             
                             Spacer()
                             
-                            StandardButton("IO/IV", self.ioIv)
+                            CodeActionButton("IO/IV", self.ioIv)
                                 .background(hasIoIvBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
                         }
                         .padding(.top, 0)
                         .padding(.bottom, Self.VerticalSpaceBetweenButtons)
 
                         HStack {
-                            StandardButton("Airway", self.airway)
+                            CodeActionButton("Airway", self.airway)
                                 .background(hasAirwayBeenPressed ? Self.StateButtonHasBeenPressedColor : nil)
 
                             Spacer()
 
-                            StandardButton("LUCAS", self.lucas)
+                            CodeActionButton("LUCAS", self.lucas)
                         }
                         .padding(.top, 0)
                         .padding(.bottom, 0)
@@ -182,7 +182,7 @@ struct CodeDialog: View {
                         self.toggleRecording()
                     }
                     
-                    StandardButton("R O S C", Self.FullScreenButtonsWidth, self.stopResuscitation)
+                    CodeActionButton("R O S C", Self.FullScreenButtonsWidth, self.stopResuscitation)
                         .padding(.top, 0)
                         .padding(.bottom, Self.SpaceBeforeEndOfDialog)
                 }

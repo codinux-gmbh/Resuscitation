@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-struct StandardButton: View {
+struct CodeActionButton: View {
     
     static let DefaultButtonWidth: CGFloat = Self.halfOfScreenWithSpacing
     
@@ -220,10 +220,10 @@ struct StandardButton: View {
 }
 
 
-struct StandardButton_Previews: PreviewProvider {
+struct CodeActionButton_Previews: PreviewProvider {
 
     static var previews: some View {
-        StandardButton("Label") { }
+        CodeActionButton("Label") { }
     }
 
 }

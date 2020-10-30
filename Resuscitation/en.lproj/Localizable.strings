@@ -15,6 +15,7 @@
 
 // text spoken out with text-to-speech to inform user of next action, e.g. 'In 10 Sekunden Adrenalin'
 "In %@ seconds %@" = "In %@ Sekunden %@";
+"Administer Amiodaron" = "Administer Amiodaron";
 
 
 /*      LogOverviewDialog       */

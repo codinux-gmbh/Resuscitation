@@ -96,6 +96,7 @@ struct CodeDialog: View {
 
                                 Text("Settings")
                             }
+                            .foregroundColor(Color.primary)
                         }
                         
                         Spacer()

@@ -14,7 +14,7 @@
 /*      CodeDialog      */
 
 // text spoken out with text-to-speech to inform user of next action, e.g. 'In 10 Sekunden Adrenalin'
-"In %@ seconds %@" = "In %@ Sekunden %@";
+"In %@ seconds %@" = "In %@ seconds %@";
 "Administer Amiodaron" = "Administer Amiodaron";
 
 

@@ -37,15 +37,18 @@ class Presenter {
     }
     
     func deleteResuscitationLog(_ logInfo: ResuscitationLogInfo) {
-        let log = persistence.deleteResuscitationLog(logInfo.id)
+        // as after deleting log.audioFilename is nil, deleting audio has to be done before deleting log
+        let persistedLog = persistence.getResuscitationLog(logInfo.id)
         
-        if let audioFilename = log.audioFilename, let audioPath = getAudioPath(audioFilename) {
+        if let audioFilename = persistedLog.audioFilename, let audioPath = getAudioPath(audioFilename) {
             do {
                 try FileManager.default.removeItem(at: audioPath)
             } catch {
                 NSLog("Could not delete audio file \(audioFilename): \(error)")
             }
         }
+        
+        persistence.deleteResuscitationLog(persistedLog)
     }
     
     

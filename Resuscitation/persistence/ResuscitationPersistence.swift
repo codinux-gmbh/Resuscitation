@@ -96,14 +96,10 @@ class ResuscitationPersistence {
         return newEntry
     }
     
-    func deleteResuscitationLog(_ logId: String) -> ResuscitationLog {
-        let log = getResuscitationLog(logId)
-        
+    func deleteResuscitationLog(_ log: ResuscitationLog) {
         context.delete(log)
         
         saveChanges()
-        
-        return log
     }
     
     
